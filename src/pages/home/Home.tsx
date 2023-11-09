@@ -1,22 +1,13 @@
 import React from 'react'
-import {ScrollView, Text, View,Button} from 'react-native';
-import {Card}  from 'react-native-elements';
-
-const produts = [
-  {name:"", price:"", description:"", image:"", quantity: 0},
-  {name:"", price:"", description:"", image:"", quantity: 0},
-  {name:"", price:"", description:"", image:"", quantity: 0},
-  {name:"", price:"", description:"", image:"", quantity: 0},
-  {name:"", price:"", description:"", image:"", quantity: 0},
-  {name:"", price:"", description:"", image:"", quantity: 0},
-  {name:"", price:"", description:"", image:"", quantity: 0}
-]
+import { ScrollView, Text, View,Button } from 'react-native';
+import { Card }  from 'react-native-elements';
+import { products } from '../../api/products';
 
 const Home = () => {
   return (
     <ScrollView>
       {
-        produts.map((product, i) => (
+        products.map((product, i) => (
           <Card>
             <Card.Title>{product.name}</Card.Title>
             <Card.Divider/>
