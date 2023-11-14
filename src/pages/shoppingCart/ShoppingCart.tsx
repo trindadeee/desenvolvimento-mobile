@@ -15,7 +15,6 @@ const ShoppingCart = ({ route, navigation }: any) => {
     } else {
       updatedCart.splice(index, 1);
     }
-    console.log(updatedCart)
     navigation.setParams({ shoppingCart: updatedCart });
   };
 
