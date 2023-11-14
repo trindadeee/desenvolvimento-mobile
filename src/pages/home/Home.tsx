@@ -84,8 +84,8 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
             <Card key={i}>
               <Card.Title>{product.name}</Card.Title>
               <Card.Divider />
-              <Card.Image source={{ uri: product.image }} style={{ width: '50%' }} />
-              <View style={{ flexDirection: 'row', alignSelf: 'center', marginBottom: '8%', marginTop: '3%' }}>
+              <Card.Image source={{ uri: product.image }} style={{ width: '50%', left:'25%'}} />
+              <View style={{ flexDirection: 'column', alignSelf: 'center', marginBottom: '8%', marginTop: '3%' }}>
                 <Text style={{ fontSize: 16, marginEnd: '5%' }}>Preço: {product.price}</Text>
                 <Text style={{ fontSize: 16 }}>Em estoque: {product.onStock}</Text>
               </View>
@@ -96,6 +96,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                 name={isFavorite ? 'heart' : 'hearto'}
                 size={28}
                 color={isFavorite ? 'red' : 'black'}
+                style={{marginBottom: 20, marginLeft: 10}}
               />
               <Pressable
                 onPress={() => {
