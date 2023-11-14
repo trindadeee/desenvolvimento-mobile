@@ -23,10 +23,12 @@ const ShoppingCart = ({ route, navigation }: any) => {
   return (
     <>
       {shoppingCart.map((prod: any, i: number) => (
-        <View style={{ marginTop: 10, marginBottom: 10 }} key={i}>
+        <View style={{ display:'flex', alignItems: 'center' , marginTop: 10, marginBottom: 10 }} key={i}>
           <Text>{prod.name}</Text>
           <Text>quantidade: {prod.quantity}</Text>
-          <Button title="Remover Item" onPress={() => removeItem(i)} />
+          <View style={{margin: 10, width: '95%'}} >
+            <Button title="Remover Item"onPress={() => removeItem(i)} />
+          </View>
           
         </View>
       ))}
