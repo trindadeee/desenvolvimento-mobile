@@ -1,105 +1,129 @@
-import React, { useState } from 'react'
-import { ScrollView, Text, View,Button, ToastAndroid, Pressable } from 'react-native';
-import { Card }  from 'react-native-elements';
-import { products } from '../api/product';
+import React, { useState } from 'react';
+import { ScrollView, Text, View, Button, ToastAndroid, Pressable, TextInput } from 'react-native';
+import { Card } from 'react-native-elements';
+import { products } from '../../../api/product';
 import { StatusBar } from 'expo-status-bar';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const Home = ({shoppingCart, setShoppingCart, favorites, setFavorites}: any) => {
+
+
+const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+
   const openToast = (message: string) => {
-    ToastAndroid.show(message,3000)
-  }
+    ToastAndroid.show(message, 3000);
+  };
+
   const removeFavorite = (product: any) => {
-    for(let i = 0; favorites.length; i++) {
-      if (favorites[i] === product.name) {
-        delete favorites[i]
-      }
-    }
-  }
-  const toggleFavorite = (product : any) => {
-    const isFavorite = favorites.some ((fav : any) => fav.name === product.name);
-    if (isFavorite) {
-      const updatedFavorites = favorites.filter((fav:any) => fav.name !== product.name);
-      setFavorites(updatedFavorites);
+    const updatedFavorites = favorites.filter((fav: any) => fav.name !== product.name);
+    setFavorites(updatedFavorites);
+  };
+
+  const addItemToCart = (cart: any, product: any) => {
+    const existingItem = cart.find((item: any) => item.id === product.id);
+
+    if (existingItem) {
+      const updatedCart = cart.map((item: any) =>
+        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+      setShoppingCart(updatedCart);
     } else {
-      setFavorites([...favorites, product])
+      setShoppingCart([...cart, { ...product, quantity: 1 }]);
     }
-  }
+  };
+
+  const toggleFavorite = (product: any) => {
+    const isFavorite = favorites.some((fav: any) => fav.name === product.name);
+    if (isFavorite) {
+      removeFavorite(product);
+    } else {
+      setFavorites([...favorites, product]);
+    }
+  };
+
   return (
     <ScrollView>
-      <StatusBar backgroundColor='black'/>
-      {
-        products.map((product, i) => {
-          const [favorite, setFavorite] = useState(false)
+      <StatusBar backgroundColor='black' />
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <TextInput
+          placeholder="Search products..."
+          value={searchTerm}
+          onChangeText={(text: string) => setSearchTerm(text)}
+          style={{
+            flex: 1,
+            height: 40,
+            borderColor: 'gray',
+            borderWidth: 1,
+            borderRadius: 20,
+            padding: 10,
+            margin: 10,
+          }}
+        />
+
+        <Pressable
+          onPress={() => setShowFavoritesOnly(!showFavoritesOnly)}
+          style={({ pressed }: any) => ({
+            padding: 10,
+          })}
+        >
+          <Icon name="heart" size={28} color={showFavoritesOnly ? 'red' : 'black'} />
+        </Pressable>
+      </View>
+
+      {products.map((product, i) => {
+        const isFavorite = favorites.some((fav: any) => fav.name === product.name);
+
+        if (
+          (showFavoritesOnly && isFavorite) ||
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.price.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
           return (
             <Card key={i}>
-                <Card.Title>{product.name}</Card.Title>
-                <Card.Divider/>
-                <Card.Image source={{uri:product.image}} style={{width: '50%'}}/>
-                <View style={{flexDirection:'row', alignSelf:'center', marginBottom:'8%', marginTop:'3%'}}>
-                  <Text style={{fontSize:16, marginEnd:'5%'}}>Preço: {product.price}</Text>
-                  <Text style={{fontSize:16}}>Quantidade: {product.quantity}</Text>
-                </View>
-                {
-                  favorite ?
-                  <Icon onPress={() => {removeFavorite(product),toggleFavorite(product), setFavorite(false)}} name = 'heart' size={28} color='red'></Icon>:
-                  <Icon onPress={() => {setFavorites([...favorites,product]),toggleFavorite(product), setFavorite(true)}} name = 'hearto' size={28}></Icon>
-                }
-                {/*<Button onPress={() => {
-                  openToast('Item Adcionado com Sucesso!')
-                  setShoppingCart([...shoppingCart, product])
-                }} title='Adicionar ao Carrinho'></Button>*/}
-
-                <Pressable 
-                  onPress={() => {
-                    openToast('Item Adcionado com Sucesso!')
-                    setShoppingCart([...shoppingCart, product]);
+              <Card.Title>{product.name}</Card.Title>
+              <Card.Divider />
+              <Card.Image source={{ uri: product.image }} style={{ width: '50%' }} />
+              <View style={{ flexDirection: 'row', alignSelf: 'center', marginBottom: '8%', marginTop: '3%' }}>
+                <Text style={{ fontSize: 16, marginEnd: '5%' }}>Preço: {product.price}</Text>
+                <Text style={{ fontSize: 16 }}>Em estoque: {product.onStock}</Text>
+              </View>
+              <Icon
+                onPress={() => {
+                  toggleFavorite(product);
                 }}
-                  
-                style= {
-                  ({pressed}: any) => (
-                    {
-                      backgroundColor: pressed ? '#7FFF00' : '#2196F3',
-                      height: 40,
-                      justifyContent:'center',
-                      alignItems: 'center',
-                      borderRadius: 5,
-                      marginBottom: 10
-                    }
-                  )
-                }
-                >
-                  <Text style={{ fontSize: 18, color: '#f0f' }}>Adicionar ao Carrinho</Text>
-                </Pressable>
-                <Pressable
-                  onPress={(navigation:any) => {
-                    openToast('Visualizando Favoritos');
-                    toggleFavorite(product);
-                    setFavorite(!favorite);
-                    navigation.navigate('favorites')
-                    }}
-                  style= {
-                    ({pressed}: any) => (
-                      {
-                        backgroundColor: pressed ? '#7FFF00' : '#2196F3',
-                        height: 40,
-                        justifyContent:'center',
-                        alignItems: 'center',
-                        borderRadius: 5,
-                        
-                      }
-                    )
-                  }>
-                    <Text style={{ fontSize: 18, color: '#f0f' }}>Meus Favoritos</Text>
-                  
-                </Pressable>
-              </Card>
-          )
-        })
-      }
+                name={isFavorite ? 'heart' : 'hearto'}
+                size={28}
+                color={isFavorite ? 'red' : 'black'}
+              />
+              <Pressable
+                onPress={() => {
+                  openToast('Item Adicionado com Sucesso!');
+                  addItemToCart([...shoppingCart], product);
+                }}
+                style={({ pressed }: any) => ({
+                  backgroundColor: pressed ? '#7FFF00' : '#2196F3',
+                  height: 40,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 5,
+                  marginBottom: 10,
+                })}
+              >
+                <Text style={{ fontSize: 18, color: '#f0f' }}>Adicionar ao Carrinho</Text>
+              </Pressable>
+            </Card>
+          );
+        } else {
+          return null;
+        }
+      })}
     </ScrollView>
-
   );
 };
 
 export default Home;
+
+
+

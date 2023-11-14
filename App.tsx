@@ -7,7 +7,6 @@ import Home from "./src/pages/home/Home";
 import Icon from "react-native-vector-icons/AntDesign";
 import ShoppingCart from "./src/pages/shoppingCart/ShoppingCart";
 import { useState } from "react";
-import Favorites from "./src/pages/favorites/Favorites";
 
 const App = (): JSX.Element => {
 
@@ -36,14 +35,6 @@ const App = (): JSX.Element => {
         <Stack.Screen options={{title:'Criar Usuário', headerTintColor:'#000' }} name ='createAccount' component={CreateAccount}></Stack.Screen>
         <Stack.Screen options={{title:'Recuperar Senha', headerTintColor:'#000' }} name ='forgotPassword' component={ForgotPassword}></Stack.Screen>
         <Stack.Screen options={{title:'Carrinho de Compras', headerTintColor:'#000' }} name ='shoppingCart' component={ShoppingCart}></Stack.Screen>
-        <Stack.Screen options={{title:'Meus Favoritos', headerTintColor:'#000' }} name ='favorites'>
-        {
-          () => (
-          <Favorites favorites = {favorites} setFavorites = {setFavorites}></Favorites>
-          )
-        }
-
-        </Stack.Screen>
       </Stack.Navigator> 
     </NavigationContainer>
   )
