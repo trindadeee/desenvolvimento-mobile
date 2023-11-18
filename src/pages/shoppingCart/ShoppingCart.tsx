@@ -22,7 +22,7 @@ const ShoppingCart = ({ route, navigation }: any) => {
   return (
     <>
       {shoppingCart.map((prod: any, i: number) => (
-        <View style={{ display:'flex', alignItems: 'center' , marginTop: 10, marginBottom: 10 }} key={i}>
+        <View style={{ display:'flex', alignItems: 'center' , marginTop: 10, marginBottom: 10,  }} key={i}>
           <Text>{prod.name}</Text>
           <Text>quantidade: {prod.quantity}</Text>
           <View style={{margin: 10, width: '95%'}} >

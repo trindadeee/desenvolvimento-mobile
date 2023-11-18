@@ -19,7 +19,7 @@ const ForgotPassword = ({navigation}:any) => {
     <TextInput secureTextEntry={true} style = {styles.input}/>
     <Text>Confirmar Nova Senha:</Text>
     <TextInput secureTextEntry={true} style = {styles.input}/>
-    <Button onPress={() => {goToPage('login')}} title = 'Enviar'></Button>
+    <Button onPress={() => {goToPage('login')}} title = 'Enviar' ></Button>
   </View>
   )
 }

@@ -44,7 +44,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
 
   return (
     <ScrollView>
-      <StatusBar backgroundColor='black' />
+      <StatusBar backgroundColor='gray' />
 
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <TextInput
@@ -104,15 +104,15 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                   addItemToCart([...shoppingCart], product);
                 }}
                 style={({ pressed }: any) => ({
-                  backgroundColor: pressed ? '#7FFF00' : '#2196F3',
+                  backgroundColor: pressed ? 'gold' : 'gray',
                   height: 40,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 5,
+                  borderRadius: 15,
                   marginBottom: 10,
                 })}
               >
-                <Text style={{ fontSize: 18, color: '#f0f' }}>Adicionar ao Carrinho</Text>
+                <Text style={{ fontSize: 18, color: ' #FFFFFF' }}>Adicionar ao Carrinho</Text>
               </Pressable>
             </Card>
           );
