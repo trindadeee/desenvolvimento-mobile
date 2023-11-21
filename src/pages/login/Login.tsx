@@ -14,7 +14,7 @@ const Login = ({navigation}:any) => {
      <View style={styles.container} >
       <View style = {styles.logo} >
         <Icon name = 'plus-square' size={150} color={'#2196F3'}></Icon>
-        <Text style = {styles.text}> ...</Text>
+        <Text style = {styles.text}> PharmGO</Text>
       </View>
       <Text style={{fontWeight: 'bold'}}>Login:</Text>
       <TextInput style = {styles.input}/>
