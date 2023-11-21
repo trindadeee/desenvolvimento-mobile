@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, Button, ToastAndroid, Pressable, TextInput } from 'react-native';
+import { ScrollView, Text, View, Button, ToastAndroid, Pressable, TextInput, ImageBackground } from 'react-native';
 import { Card } from 'react-native-elements';
-import { products } from '../../../api/product';
+import { products } from '../api/product';
 import { StatusBar } from 'expo-status-bar';
 import Icon from 'react-native-vector-icons/AntDesign';
+import styles from './HomeStyle';
 
 
 
@@ -43,6 +44,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
   };
 
   return (
+    <ImageBackground style={styles.imageBack} source={require('pharmacy-mobile/assets/farmBackground.jpg')}>
     <ScrollView>
       <StatusBar backgroundColor='gray' />
 
@@ -121,10 +123,8 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
         }
       })}
     </ScrollView>
+    </ImageBackground>
   );
 };
 
 export default Home;
-
-
-
