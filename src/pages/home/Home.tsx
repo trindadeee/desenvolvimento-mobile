@@ -4,7 +4,7 @@ import { Card } from 'react-native-elements';
 import { products } from '../api/product';
 import { StatusBar } from 'expo-status-bar';
 import Icon from 'react-native-vector-icons/AntDesign';
-import styles from './HomeStyle';
+import styles from '../login/LoginStyle';
 
 
 
@@ -114,7 +114,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                   marginBottom: 10,
                 })}
               >
-                <Text style={{ fontSize: 18, color: ' #FFFFFF' }}>Adicionar ao Carrinho</Text>
+                <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Adicionar ao Carrinho</Text>
               </Pressable>
             </Card>
           );
