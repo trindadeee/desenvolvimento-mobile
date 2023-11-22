@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View, Button, ToastAndroid, Pressable, TextInput, ImageBackground } from 'react-native';
 import { Card } from 'react-native-elements';
-import { products } from '../api/product';
+import { products } from '../../../api/product';
 import { StatusBar } from 'expo-status-bar';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from '../login/LoginStyle';
