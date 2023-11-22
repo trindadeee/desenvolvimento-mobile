@@ -61,6 +61,9 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
             borderRadius: 20,
             padding: 10,
             margin: 10,
+            color: 'black',
+            fontWeight: 'bold',
+            fontSize: 17
           }}
         />
 
@@ -83,13 +86,17 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
           product.price.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
           return (
-            <Card key={i}>
-              <Card.Title>{product.name}</Card.Title>
+            <Card key={i} containerStyle={{ backgroundColor: 'transparent', borderColor: 'white', borderWidth: 0 }}>
+            <Card.Title style={{ fontSize: 20 }}>{product.name}</Card.Title>
               <Card.Divider />
               <Card.Image source={{ uri: product.image }} style={{ width: '50%', left:'25%'}} />
               <View style={{ flexDirection: 'column', alignSelf: 'center', marginBottom: '8%', marginTop: '3%' }}>
-                <Text style={{ fontSize: 16, marginEnd: '5%' }}>Preço: {product.price}</Text>
-                <Text style={{ fontSize: 16 }}>Em estoque: {product.onStock}</Text>
+              <Text style={{ fontSize: 17, marginEnd: '5%', fontWeight: 'bold', color: 'black' }}>
+                Preço: <Text style={{ color: 'black', fontWeight: 'bold' }}>{product.price}</Text>
+              </Text>
+              <Text style={{ fontSize: 17,fontWeight: 'bold', color: 'black' }}>
+                Em estoque: <Text style={{ color: 'black', fontWeight: 'bold' }}>{product.onStock}</Text>
+              </Text>
               </View>
               <Icon
                 onPress={() => {
@@ -114,9 +121,9 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                   marginBottom: 10,
                 })}
               >
-                <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Adicionar ao Carrinho</Text>
+                <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>Adicionar ao Carrinho</Text>
               </Pressable>
-            </Card>
+          </Card>
           );
         } else {
           return null;
