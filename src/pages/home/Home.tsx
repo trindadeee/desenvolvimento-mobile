@@ -83,8 +83,8 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
           product.price.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
           return (
-            <Card key={i}>
-              <Card.Title>{product.name}</Card.Title>
+            <Card key={i} containerStyle={{ backgroundColor: 'transparent', borderColor: 'white', borderWidth: 0 }}>
+             <Card.Title>{product.name}</Card.Title>
               <Card.Divider />
               <Card.Image source={{ uri: product.image }} style={{ width: '50%', left:'25%'}} />
               <View style={{ flexDirection: 'column', alignSelf: 'center', marginBottom: '8%', marginTop: '3%' }}>
@@ -116,7 +116,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
               >
                 <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Adicionar ao Carrinho</Text>
               </Pressable>
-            </Card>
+          </Card>
           );
         } else {
           return null;
