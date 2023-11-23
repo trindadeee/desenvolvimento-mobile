@@ -1,12 +1,14 @@
 import React from 'react';
-import { Button, ImageBackground, Text, TextInput, View } from 'react-native';
+import { Button, ImageBackground, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './LoginStyle';
+import Home from '../home/Home';
 
 const Login = ({navigation}:any) => {
     const goToPage = (path:string) => {
         navigation.navigate(path)
     }
+ 
   return (
 
     <ImageBackground style={styles.imageBack} source={require('pharmacy-mobile/assets/farmBackground.jpg')}>
@@ -24,7 +26,11 @@ const Login = ({navigation}:any) => {
         <Text onPress={() => {goToPage('createAccount')}} style = {[styles.link,{fontWeight: 'bold'}]}>Criar Usuário</Text>
         <Text onPress={() => {goToPage('forgotPassword')}} style = {[styles.link,{fontWeight: 'bold'}]}>Esqueceu sua senha?</Text>
       </View>
-      <Button onPress={() => {goToPage('home')}} title = 'Entrar'></Button>
+      <TouchableOpacity style={styles.customButton} onPress={() => { goToPage('home') }}>
+          <Text style={styles.buttonText}>Entrar</Text>
+        </TouchableOpacity>
+     
+     
     </View>
         
     </ImageBackground>
