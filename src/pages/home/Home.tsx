@@ -113,8 +113,9 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                   addItemToCart([...shoppingCart], product);
                 }}
                 style={({ pressed }: any) => ({
-                  backgroundColor: pressed ? 'gold' : 'gray',
+                  backgroundColor: pressed ? 'gold' : '#00BFFF',
                   height: 40,
+                  display:'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
                   borderRadius: 15,
