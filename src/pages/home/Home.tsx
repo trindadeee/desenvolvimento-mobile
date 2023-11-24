@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, View, Button, ToastAndroid, Pressable, TextInput, ImageBackground } from 'react-native';
-import { Card } from 'react-native-elements';
-import { products } from '../../../api/product';
+import { ScrollView, View, Pressable, TextInput, ImageBackground, ToastAndroid } from 'react-native';
+import { Card, Text } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
-import Icon from 'react-native-vector-icons/AntDesign';
 import styles from '../login/LoginStyle';
-
-
+import { products } from '../api/product';
+import Icon from 'react-native-vector-icons/AntDesign';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -45,94 +44,82 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
 
   return (
     <ImageBackground style={styles.imageBack} source={require('pharmacy-mobile/assets/farmBackground.jpg')}>
-    <ScrollView>
-      <StatusBar backgroundColor='gray' />
+      <ScrollView>
+        <StatusBar backgroundColor='gray' />
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <TextInput
-          placeholder="Search products..."
-          value={searchTerm}
-          onChangeText={(text: string) => setSearchTerm(text)}
-          style={{
-            flex: 1,
-            height: 40,
-            borderColor: 'gray',
-            borderWidth: 1,
-            borderRadius: 20,
-            padding: 10,
-            margin: 10,
-            color: 'black',
-            fontWeight: 'bold',
-            fontSize: 17
-          }}
-        />
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <TextInput
+            placeholder="Search products..."
+            value={searchTerm}
+            onChangeText={(text: string) => setSearchTerm(text)}
+            style={{
+              flex: 1,
+              height: 40,
+              borderColor: 'gray',
+              borderWidth: 1,
+              borderRadius: 20,
+              padding: 10,
+              margin: 10,
+              color: 'black',
+              fontWeight: 'bold',
+              fontSize: 17
+            }}
+          />
 
-        <Pressable
-          onPress={() => setShowFavoritesOnly(!showFavoritesOnly)}
-          style={({ pressed }: any) => ({
-            padding: 10,
-          })}
-        >
-          <Icon name="heart" size={28} color={showFavoritesOnly ? 'red' : 'black'} />
-        </Pressable>
-      </View>
+          <Pressable
+            onPress={() => setShowFavoritesOnly(!showFavoritesOnly)}
+            style={({ pressed }: any) => ({
+              padding: 10,
+            })}
+          >
+            <Icon name="heart" size={28} color={showFavoritesOnly ? 'red' : 'black'} />
+          </Pressable>
+        </View>
 
-      {products.map((product, i) => {
-        const isFavorite = favorites.some((fav: any) => fav.name === product.name);
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+          {products.map((product, i) => {
+            const isFavorite = favorites.some((fav: any) => fav.name === product.name);
 
-        if (
-          (showFavoritesOnly && isFavorite) ||
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.price.toLowerCase().includes(searchTerm.toLowerCase())
-        ) {
-          return (
-            <Card key={i} containerStyle={{ backgroundColor: 'transparent', borderColor: 'white', borderWidth: 0 }}>
-            <Card.Title style={{ fontSize: 20 }}>{product.name}</Card.Title>
-              <Card.Divider />
-              <Card.Image source={{ uri: product.image }} style={{ width: '50%', left:'25%'}} />
-              <View style={{ flexDirection: 'column', alignSelf: 'center', marginBottom: '8%', marginTop: '3%' }}>
-              <Text style={{ fontSize: 17, marginEnd: '5%', fontWeight: 'bold', color: 'black' }}>
-                Preço: <Text style={{ color: 'black', fontWeight: 'bold' }}>{product.price}</Text>
-              </Text>
-              <Text style={{ fontSize: 17,fontWeight: 'bold', color: 'black' }}>
-                Em estoque: <Text style={{ color: 'black', fontWeight: 'bold' }}>{product.onStock}</Text>
-              </Text>
-              </View>
-              <Icon
-                onPress={() => {
-                  toggleFavorite(product);
-                }}
-                name={isFavorite ? 'heart' : 'hearto'}
-                size={28}
-                color={isFavorite ? 'red' : 'black'}
-                style={{marginBottom: 20, marginLeft: 10}}
-              />
-              <Pressable
-                onPress={() => {
-                  openToast('Item Adicionado com Sucesso!');
-                  addItemToCart([...shoppingCart], product);
-                }}
-                style={({ pressed }: any) => ({
-                  backgroundColor: pressed ? 'gold' : '#00BFFF',
-                  height: 40,
-                  display:'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 15,
-                  marginBottom: 10,
-                })}
-              >
-                <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>Adicionar ao Carrinho</Text>
-              </Pressable>
-          </Card>
-          );
-        } else {
-          return null;
-        }
-      })}
-    </ScrollView>
-    </ImageBackground>
-  );
+            if (
+              (showFavoritesOnly && isFavorite) ||
+              product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              product.price.toLowerCase().includes(searchTerm.toLowerCase())
+            ) {
+              return (
+                <Card key={i} containerStyle={{ backgroundColor: 'transparent' }}>
+                  <Card.Image source={{ uri: product.image }} />
+                  <Text>{product.name}</Text>
+                  <Text>{product.price}</Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                    <Pressable 
+                        onPress={() => {
+                        openToast('Item Adicionado com Sucesso!');
+                        addItemToCart([...shoppingCart], product);
+                        }}>
+                      <FontAwesome name="cart-plus" size={28} color="black" />
+                      </Pressable>
+                      <Pressable onPress={() => toggleFavorite(product)}>
+                        <Icon 
+                          onPress={() => {
+                          toggleFavorite(product);
+                          }}
+                          name={isFavorite ? 'heart' : 'hearto'}
+                          size={28}
+                          color={isFavorite ? 'red' : 'black'}
+                          style={{marginBottom: 20, marginLeft: 10}}
+                          /> 
+                      </Pressable>
+                    </View>
+                  </Card>
+                  );
+                } else {
+                return null;
+              }
+              })}
+          </View>
+        </ScrollView>
+      </ImageBackground>
+    );
 };
 
 export default Home;
