@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ImageBackground, Text, View, Image } from 'react-native';
-import { Button } from 'react-native-elements';
+import { ImageBackground, Text, View, Image, Pressable } from 'react-native';
 import styles from '../login/LoginStyle';
 
 const ShoppingCart = ({ route, navigation }: any) => {
@@ -27,7 +26,18 @@ const ShoppingCart = ({ route, navigation }: any) => {
             <Text>{prod.name}</Text>
             <Text>Quantidade: {prod.quantity}</Text>
             <View style={{ margin: 10, width: '95%' }}>
-              <Button title="Remover Item" onPress={() => removeItem(i)} />
+            <Pressable
+                style={({ pressed }: any) => ({
+                  backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                  height: 40,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 15,
+                  marginBottom: 10,
+                })}
+              >
+                <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Remover</Text>
+              </Pressable>
             </View>
           </View>
         ))}
