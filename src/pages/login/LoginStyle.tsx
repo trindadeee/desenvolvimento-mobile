@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
       marginBottom: '5%',
     },
     link: {
-      color : '#2196F3',
+      color : '#236B8E',
       marginLeft: '10%',
   
     },
@@ -42,21 +42,8 @@ const styles = StyleSheet.create({
       fontSize: 34,
       color: '#666666',
       fontWeight: 'bold'
-    
-    },
-    customButton: {
-      backgroundColor: '#00BFFF',
-      padding: 10,
-      borderRadius: 15,
-      marginTop: 10,
-      alignItems: 'center',
-     
-    },
-    buttonText: {
-      color: 'white',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
+    }
+
   });
   export default styles
   
