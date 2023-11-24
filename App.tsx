@@ -34,7 +34,7 @@ const App = (): JSX.Element => {
          </Stack.Screen>
         <Stack.Screen options={{title:'Criar Usuário', headerTintColor:'#000' }} name ='createAccount' component={CreateAccount}></Stack.Screen>
         <Stack.Screen options={{title:'Recuperar Senha', headerTintColor:'#000' }} name ='forgotPassword' component={ForgotPassword}></Stack.Screen>
-        <Stack.Screen options={{title:'Carrinho de Compras', headerTintColor:'#000' }} name ='shoppingCart' component={ShoppingCart}></Stack.Screen>
+        <Stack.Screen options={{title:'Carrinho', headerTintColor:'#000' }} name ='shoppingCart' component={ShoppingCart}></Stack.Screen>
       </Stack.Navigator> 
     </NavigationContainer>
   )

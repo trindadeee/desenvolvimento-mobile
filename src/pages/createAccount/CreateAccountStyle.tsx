@@ -43,6 +43,19 @@ const styles = StyleSheet.create({
         color: 'gray',
     
     },
+    customButton: {
+        backgroundColor: '#00BFFF',
+        padding: 10,
+        borderRadius: 15,
+        marginTop: 10,
+        alignItems: 'center',
+       
+      },
+      buttonText: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: 'bold',
+      },
     
   });
 

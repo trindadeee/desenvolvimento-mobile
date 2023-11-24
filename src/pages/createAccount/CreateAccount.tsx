@@ -1,5 +1,5 @@
 import React from 'react'
-import {Text, TextInput, View, Button } from 'react-native';
+import {Text, TextInput, View, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './CreateAccountStyle';
 
@@ -25,8 +25,13 @@ const CreateAccount = ({navigation}:any) => {
       <TextInput secureTextEntry={true} style={styles.input}/>
       <View style={styles.createForgotLink}>
       </View>
-      <Button  onPress={() => {goToPage('login')}} title = 'Create'></Button>
+
+      <TouchableOpacity style={styles.customButton} onPress={() => { goToPage('login') }}>
+          <Text style={styles.buttonText}>Create</Text>
+        </TouchableOpacity>
+     
     </View>
+   
   );
 };
 

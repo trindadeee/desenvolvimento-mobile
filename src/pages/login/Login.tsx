@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ImageBackground, Text, TextInput, View, TouchableOpacity} from 'react-native';
+import { ImageBackground, Text, TextInput, View, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './LoginStyle';
 import Home from '../home/Home';
