@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Pressable, TextInput, ImageBackground, ToastAndroid } from 'react-native';
+import { ScrollView, View, Pressable, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import { StatusBar } from 'expo-status-bar';
 import styles from '../login/LoginStyle';
@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) => {
+  const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
+
   const [searchTerm, setSearchTerm] = useState('');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
@@ -43,7 +45,10 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
   };
 
   return (
-    <ImageBackground style={styles.imageBack} source={require('pharmacy-mobile/assets/farmBackground.jpg')}>
+    <ImageBackground
+        source={{ uri: backgroundImageUrl }}
+        style={styles.imageBack}
+      >
       <ScrollView>
         <StatusBar backgroundColor='gray' />
 
@@ -72,7 +77,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
               padding: 10,
             })}
           >
-            <Icon name="heart" size={28} color={showFavoritesOnly ? 'red' : 'black'} />
+            <Icon name="heart" size={28} color={showFavoritesOnly ? 'red' : '#236B8E'} />
           </Pressable>
         </View>
 
@@ -96,7 +101,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                         openToast('Item Adicionado com Sucesso!');
                         addItemToCart([...shoppingCart], product);
                         }}>
-                      <FontAwesome name="cart-plus" size={28} color="black" />
+                      <FontAwesome name="cart-plus" size={28} color="#236B8E" />
                       </Pressable>
                       <Pressable onPress={() => toggleFavorite(product)}>
                         <Icon 
@@ -105,7 +110,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
                           }}
                           name={isFavorite ? 'heart' : 'hearto'}
                           size={28}
-                          color={isFavorite ? 'red' : 'black'}
+                          color={isFavorite ? 'red' : '#236B8E'}
                           style={{marginBottom: 20, marginLeft: 10}}
                           /> 
                       </Pressable>
@@ -118,7 +123,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
               })}
           </View>
         </ScrollView>
-      </ImageBackground>
+        </ImageBackground>
     );
 };
 
