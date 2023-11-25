@@ -1,9 +1,11 @@
 import React from 'react';
-import { ImageBackground, Pressable, Text, TextInput, View } from 'react-native';
+import {ImageBackground, Pressable, Text, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './LoginStyle';
 
 const Login = ({navigation}:any) => {
+
+  const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
     
   const goToPage = (path:string) => {
         navigation.navigate(path)
@@ -14,8 +16,11 @@ const Login = ({navigation}:any) => {
   
   return (
 
-    <ImageBackground style={styles.imageBack} source={require('pharmacy-mobile/assets/farmBackground.jpg')}>
-   
+    <ImageBackground
+        source={{ uri: backgroundImageUrl }}
+        style={styles.imageBack}
+      >
+
      <View style={styles.container} >
       <View style = {styles.logo} >
         <Icon name = 'plus-square' size={150} color={'#2196F3'}></Icon>
@@ -43,10 +48,8 @@ const Login = ({navigation}:any) => {
                 <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Entrar</Text>
               </Pressable>
     </View>
-        
     </ImageBackground>
-  )
+          )
 };
 
 export default Login;
-
