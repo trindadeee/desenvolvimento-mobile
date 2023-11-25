@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-
 const styles = StyleSheet.create({
   imageBack: {
     flex: 1,
@@ -17,7 +16,6 @@ const styles = StyleSheet.create({
       width: '100%',
       borderColor: 'gray',
       borderWidth: 1,
-      borderTopWidth:2,
       marginBottom: 10, // Altere este valor conforme necessário
       marginTop: 10, // Altere este valor conforme necessário
       borderRadius: 15,
@@ -40,10 +38,10 @@ const styles = StyleSheet.create({
     },
     text:{
       fontSize: 34,
-      color: '#666666',
+      color: '#236B8E',
       fontWeight: 'bold'
     }
-
   });
   export default styles
+  
   
