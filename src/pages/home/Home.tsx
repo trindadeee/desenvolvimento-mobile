@@ -1,3 +1,4 @@
+// Home.tsx
 import React, { useState } from 'react';
 import { ScrollView, View, Pressable, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Card, Text } from 'react-native-elements';
@@ -127,4 +128,3 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
 };
 
 export default Home;
-
