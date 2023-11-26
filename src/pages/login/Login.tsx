@@ -48,8 +48,8 @@ const Login = ({navigation}:any) => {
       <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Senha:</Text>
       <TextInput secureTextEntry={true} style = {styles.input}/>
       <View style = {styles.createForgotLink}>
-        <Text onPress={() => {goToPage('createAccount')}} style = {[styles.link,{fontSize:15,color:'#236B8E', fontWeight: 'bold'}]}>Criar Usuário</Text>
-        <Text onPress={() => {goToPage('forgotPassword')}} style = {[styles.link,{fontSize:15,color:'#236B8E', fontWeight: 'bold'}]}>Esqueceu sua senha?</Text>
+        <Text onPress={() => {goToPage('createAccount')}} style = {[styles.link,{fontSize:15,color:'#236B8E', fontWeight: 'bold',marginTop:17}]}>Criar Usuário</Text>
+        <Text onPress={() => {goToPage('forgotPassword')}} style = {[styles.link,{fontSize:15,color:'#236B8E', fontWeight: 'bold',marginTop:17}]}>Esqueceu sua senha?</Text>
       </View>
       
       <View style={styles.createForgotLink}>
@@ -64,7 +64,7 @@ const Login = ({navigation}:any) => {
               marginBottom: 10,
               marginRight: 30,
               padding: 10,
-              marginTop: 18,
+              marginTop: 8,
             })}
           >
             <Icon name="google" size={25} color="#FFFFFF" />
@@ -83,7 +83,7 @@ const Login = ({navigation}:any) => {
               marginRight: 40,
               padding: 10,
               marginLeft: 6,
-              marginTop: 18,
+              marginTop: 8,
             })}
           >
             <FontAwesomeIcon name="instagram" size={25} color="#FFFFFF" />
@@ -100,7 +100,7 @@ const Login = ({navigation}:any) => {
               marginBottom: 10,
               marginRight: 10,
               padding: 10,
-              marginTop: 18,
+              marginTop: 8,
             })}
           >
             <MaterialIcon name="twitter" size={25} color="#FFFFFF" />
