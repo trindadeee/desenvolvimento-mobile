@@ -21,8 +21,8 @@ const Favorites = ({ route }: any) => {
                 source={{ uri: favorite.image }}
                 style={styles.image}
               />
-              <Text>{favorite.name}</Text>
-              <Text>{favorite.price}</Text>
+              <Text  style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{favorite.name}</Text>
+              <Text  style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{favorite.price}</Text>
             </Card>
           ))}
         </View>
@@ -32,3 +32,4 @@ const Favorites = ({ route }: any) => {
 };
 
 export default Favorites;
+
