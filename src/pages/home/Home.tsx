@@ -1,8 +1,7 @@
-// Home.tsx
 import React, { useState } from 'react';
 import { ScrollView, View, Pressable, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Card, Text } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native'; // Importe o hook useNavigation
+import { useNavigation } from '@react-navigation/native';
 import styles from '../login/LoginStyle';
 import { products } from '../api/product';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -15,7 +14,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
   const [searchTerm, setSearchTerm] = useState('');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-  const navigation = useNavigation(); // Use o hook useNavigation para obter o objeto de navegação
+  const navigation = useNavigation();
 
   const openToast = (message: string) => {
     ToastAndroid.show(message, 3000);
@@ -44,7 +43,6 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
     if (isFavorite) {
       removeFavorite(product);
     } else {
-      // Adicione o produto aos favoritos
       setFavorites([...favorites, { ...product }]);
     }
   };
@@ -78,7 +76,6 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
           <Pressable
             onPress={() => {
               setShowFavoritesOnly(!showFavoritesOnly);
-              // Navegue para a página de favoritos ao pressionar o botão
               navigation.navigate('favorites', { favorites })
             }}
             style={({ pressed }) => ({
@@ -97,8 +94,9 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
             return (
               <Card key={i} containerStyle={{ backgroundColor: 'transparent' }}>
                 <Card.Image source={{ uri: product.image }} />
-                <Text>{product.name}</Text>
-                <Text>{product.price}</Text>
+                {/* Apply styles to the product name */}
+                <Text style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{product.name}</Text>
+                <Text style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{product.price}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                   <Pressable
                     onPress={() => {
