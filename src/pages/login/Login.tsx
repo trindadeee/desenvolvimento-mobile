@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './LoginStyle';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'; // Para ícone do Twitter
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Para ícone do Instagram
+import { StatusBar } from 'expo-status-bar';
 
 
 const Login = ({navigation}:any) => {
@@ -35,6 +36,7 @@ const Login = ({navigation}:any) => {
         source={{ uri: backgroundImageUrl }}
         style={styles.imageBack}
       >
+        <StatusBar backgroundColor='#236B8E' />
 
      <View style={styles.container} >
       <View style = {styles.logo} >
@@ -125,4 +127,3 @@ const Login = ({navigation}:any) => {
 };
 
 export default Login;
-
