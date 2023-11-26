@@ -5,6 +5,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Para íc
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'; // Para ícone do Twitter
 import styles from '../login/LoginStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { StatusBar } from 'expo-status-bar';
 
 
 const CreateAccount = ({ navigation }: any) => {
@@ -18,15 +19,15 @@ const CreateAccount = ({ navigation }: any) => {
   };
 
   const handleGmailLogin = () => {
-    Linking.openURL('https://accounts.google.com/signup');
+    Linking.openURL('https://accounts.google.com/AccountChooser/identifier?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&flowName=GlifWebSignIn&flowEntry=AccountChooser&ec=asw-gmail-globalnav-signin&theme=glif');
   };
 
   const handleInstagramLogin = () => {
-    Linking.openURL('https://www.instagram.com/accounts/emailsignup/');
+    Linking.openURL('https://www.instagram.com/accounts/login/?source=auth_switcher');
   };
 
   const handleTwitterLogin = () => {
-    Linking.openURL('https://twitter.com/signup');
+    Linking.openURL('https://twitter.com/i/flow/login');
   };
 
   const handleCreateAccount = () => {
@@ -36,6 +37,8 @@ const CreateAccount = ({ navigation }: any) => {
 
   return (
     <ImageBackground source={{ uri: backgroundImageUrl }} style={styles.imageBack}>
+      <StatusBar backgroundColor='#236B8E' />
+
       <View style={styles.container}>
         <View style={styles.logo}>
           <FontAwesome name="user-circle-o" size={150} color={'#236B8E'}></FontAwesome>
