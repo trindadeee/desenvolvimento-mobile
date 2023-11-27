@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ImageBackground, Text, View, Image, Pressable } from 'react-native';
 import styles from '../login/LoginStyle';
 import { products } from '../../../api/product';
@@ -8,6 +8,11 @@ const ShoppingCart = ({ route, navigation }: any) => {
 
   const [cart, setCart] = useState(route.params.shoppingCart);
 
+  useEffect(() => {
+    // Atualizar o carrinho quando a propriedade de navegação mudar
+    setCart(route.params.shoppingCart);
+  }, [route.params.shoppingCart]);
+
   const updateQuantity = (id: number, increment: number) => {
     const updatedCart = [...cart];
     const index = updatedCart.findIndex((item) => item.id === id);
@@ -15,7 +20,7 @@ const ShoppingCart = ({ route, navigation }: any) => {
     if (index !== -1) {
       updatedCart[index].quantity += increment;
 
-      if (updatedCart[index].quantity <= 1) {
+      if (updatedCart[index].quantity <= 0) {
         updatedCart.splice(index, 1);
       }
 

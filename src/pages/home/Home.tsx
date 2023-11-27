@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Pressable, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Card, Text } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native'; // Importe o hook useNavigation
+import { useNavigation } from '@react-navigation/native';
 import styles from '../login/LoginStyle';
 // import { products } from  '../../../api/product';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -21,7 +21,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
   const [searchTerm, setSearchTerm] = useState('');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-  const navigation = useNavigation(); // Use o hook useNavigation para obter o objeto de navegação
+  const navigation = useNavigation();
 
   const openToast = (message: string) => {
     ToastAndroid.show(message, 2000);
@@ -64,7 +64,8 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
         <StatusBar backgroundColor="#236B8E"/>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <TextInput
+               {/* Barra de pesquisa */}
+            <TextInput
             placeholder="Search products..."
             value={searchTerm}
             onChangeText={(text: string) => setSearchTerm(text)}
