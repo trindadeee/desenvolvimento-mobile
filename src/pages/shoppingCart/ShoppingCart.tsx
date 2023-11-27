@@ -42,7 +42,7 @@ const ShoppingCart = ({ route, navigation }: any) => {
       >
         {cart.map((prod: any) => (
           prod.quantity > 0 && (
-            <View key={prod.id} style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+            <View key={prod.id} style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', marginTop: 10, marginBottom: 10 ,backgroundColor: 'white'}}>
               <Image source={{ uri: prod.image }} style={{ width: 100, height: 100 }} />
               <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10, flex: 1 }}>
                 <Pressable
