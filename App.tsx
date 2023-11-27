@@ -21,6 +21,8 @@ const App = (): JSX.Element => {
         <Stack.Screen options={{ headerShown: false }} name="login" component={Login} />
         <Stack.Screen
           options={({ navigation }) => ({
+            title: 'PharmGo',
+            headerTintColor: '#000',
             headerBackVisible: false,
             headerTitleAlign: 'center',
             headerRight: () => (
@@ -55,3 +57,4 @@ const App = (): JSX.Element => {
 };
 
 export default App;
+
