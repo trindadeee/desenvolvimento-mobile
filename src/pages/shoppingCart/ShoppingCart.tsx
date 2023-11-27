@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ImageBackground, Text, View, Image, Pressable } from 'react-native';
 import styles from '../login/LoginStyle';
 
@@ -7,6 +7,11 @@ const ShoppingCart = ({ route, navigation }: any) => {
 
   const [cart, setCart] = useState(route.params.shoppingCart);
 
+  useEffect(() => {
+    // Atualizar o carrinho quando a propriedade de navegação mudar
+    setCart(route.params.shoppingCart);
+  }, [route.params.shoppingCart]);
+
   const updateQuantity = (id: number, increment: number) => {
     const updatedCart = [...cart];
     const index = updatedCart.findIndex((item) => item.id === id);
@@ -14,7 +19,7 @@ const ShoppingCart = ({ route, navigation }: any) => {
     if (index !== -1) {
       updatedCart[index].quantity += increment;
 
-      if (updatedCart[index].quantity <= 1) {
+      if (updatedCart[index].quantity <= 0) {
         updatedCart.splice(index, 1);
       }
 
@@ -23,73 +28,75 @@ const ShoppingCart = ({ route, navigation }: any) => {
     }
   };
 
-  const removeItem = (id: number) => {
-    const updatedCart = cart.filter((item:any) => item.id !== id);
+  const removeItem = (id: number): void => {
+    const updatedCart = cart.filter((item: { id: number }) => item.id !== id);
     setCart(updatedCart);
     navigation.setParams({ shoppingCart: updatedCart });
   };
 
   return (
-      <>
+    <>
       <ImageBackground
         source={{ uri: backgroundImageUrl }}
         style={styles.imageBack}
       >
         {cart.map((prod: any) => (
-          <View key={prod.id} style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
-            <Image source={{ uri: prod.image }} style={{ width: 100, height: 100 }} />
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10, marginRight: 'auto' }}>
-              <Pressable
-                style={({ pressed }: any) => ({
-                  backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-                  height: 40,
-                  width: 50,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 18,
-                  marginRight: 8,
-                })}
-                onPress={() => updateQuantity(prod.id, -1)}
-              >
-                <Text style={{ fontSize: 18, color: '#FFFFFF' }}>-</Text>
-              </Pressable>
-              <View>
-                <Text>{prod.name}</Text>
-                <Text>Quantidade: {prod.quantity}</Text>
+          prod.quantity > 0 && (
+            <View key={prod.id} style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+              <Image source={{ uri: prod.image }} style={{ width: 100, height: 100 }} />
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10, flex: 1 }}>
+                <Pressable
+                  style={({ pressed }) => ({
+                    backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                    height: 40,
+                    width: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 18,
+                    marginRight: 8,
+                  })}
+                  onPress={() => updateQuantity(prod.id, -1)}
+                >
+                  <Text style={{ fontSize: 18, color: '#FFFFFF' }}>-</Text>
+                </Pressable>
+                <View>
+                  <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>{prod.name}</Text>
+                  <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Quantidade: {prod.quantity}</Text>
+                </View>
+                <Pressable
+                  style={({ pressed }) => ({
+                    backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                    height: 40,
+                    width: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 18,
+                    marginLeft: 8,
+                  })}
+                  onPress={() => updateQuantity(prod.id, 1)}
+                >
+                  <Text style={{ fontSize: 18, color: '#FFFFFF' }}>+</Text>
+                </Pressable>
               </View>
               <Pressable
-                style={({ pressed }: any) => ({
-                  backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                style={({ pressed }) => ({
+                  backgroundColor: pressed ? '#95CEDF' :'#236B8E',
                   height: 40,
-                  width: 50,
+                  width: 140,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderRadius: 18,
-                  marginLeft: 8,
+                  borderRadius: 15,
+                  marginRight: 20,
                 })}
-                onPress={() => updateQuantity(prod.id, 1)}
+                onPress={() => removeItem(prod.id)}
               >
-                <Text style={{ fontSize: 18, color: '#FFFFFF' }}>+</Text>
+                <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Remover</Text>
               </Pressable>
             </View>
-            <Pressable
-              style={({ pressed }: any) => ({
-                backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-                height: 40,
-                width: 140,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 15,
-                marginRight: 20, // Ajuste a margem à esquerda para afastar da borda
-              })}
-              onPress={() => removeItem(prod.id)}
-            >
-              <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Remover</Text>
-            </Pressable>
-          </View>
+          )
         ))}
-        </ImageBackground>
-      </>
+      </ImageBackground>
+    </>
   );
 };
 
