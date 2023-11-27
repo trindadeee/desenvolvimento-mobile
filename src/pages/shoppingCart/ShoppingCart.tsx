@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ImageBackground, Text, View, Image, Pressable } from 'react-native';
 import styles from '../login/LoginStyle';
+import { products } from '../../../api/product';
 
 const ShoppingCart = ({ route, navigation }: any) => {
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
@@ -23,21 +24,19 @@ const ShoppingCart = ({ route, navigation }: any) => {
     }
   };
 
-  const removeItem = (id: number) => {
-    const updatedCart = cart.filter((item:any) => item.id !== id);
-    setCart(updatedCart);
-    navigation.setParams({ shoppingCart: updatedCart });
-  };
+  const submitBuy = (products: Array<any>) => {
+
+  }
 
   return (
-      <>
+    <>
       <ImageBackground
         source={{ uri: backgroundImageUrl }}
         style={styles.imageBack}
       >
         {cart.map((prod: any) => (
-          <View key={prod.id} style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
-            <Image source={{ uri: prod.image }} style={{ width: 100, height: 100 }} />
+          <View key={prod.id} style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', marginVertical: 10, backgroundColor: 'white', marginHorizontal: 5, borderRadius: 15 }}>
+            <Image source={{ uri: prod.image }} style={{ marginVertical: 10, width: 100, height: 100 }} />
             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10, marginRight: 'auto' }}>
               <Pressable
                 style={({ pressed }: any) => ({
@@ -53,8 +52,8 @@ const ShoppingCart = ({ route, navigation }: any) => {
               >
                 <Text style={{ fontSize: 18, color: '#FFFFFF' }}>-</Text>
               </Pressable>
-              <View>
-                <Text>{prod.name}</Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', maxWidth: 150, justifyContent: 'center' }}>
+                <Text style={{ marginVertical: 5 }} >{prod.name}</Text>
                 <Text>Quantidade: {prod.quantity}</Text>
               </View>
               <Pressable
@@ -72,24 +71,31 @@ const ShoppingCart = ({ route, navigation }: any) => {
                 <Text style={{ fontSize: 18, color: '#FFFFFF' }}>+</Text>
               </Pressable>
             </View>
-            <Pressable
-              style={({ pressed }: any) => ({
-                backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-                height: 40,
-                width: 140,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 15,
-                marginRight: 20, // Ajuste a margem à esquerda para afastar da borda
-              })}
-              onPress={() => removeItem(prod.id)}
-            >
-              <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Remover</Text>
-            </Pressable>
           </View>
         ))}
-        </ImageBackground>
-      </>
+        { cart.length > 0 ? (
+        <View style={{ alignItems: 'flex-end', marginHorizontal: 20 }}>
+        <Pressable
+                style={({ pressed }: any) => ({
+                backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                height: 40,
+                width: 100,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 18,
+                marginLeft: 8,
+              })}
+              onPress={() => submitBuy(products)}
+            >
+              <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Comprar</Text>
+            </Pressable>
+        </View>
+        ): 
+        <View>
+          <Text style={{fontSize: 18, marginLeft:'15%' ,marginVertical: '60%'}}>Seu carrinho de compras está vazio</Text>  
+        </View>}
+      </ImageBackground>
+    </>
   );
 };
 

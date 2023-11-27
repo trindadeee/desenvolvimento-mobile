@@ -47,66 +47,14 @@ const CreateAccount = ({ navigation }: any) => {
         <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Nome Completo: </Text>
         <TextInput style={styles.input} />
         <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Email: </Text>
-        <TextInput secureTextEntry={true} style={styles.input} />
+        <TextInput keyboardType='email-address' style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Número de telefone: </Text>
+        <TextInput maxLength={11} keyboardType='numeric' style={styles.input} />
         <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Senha: </Text>
         <TextInput secureTextEntry={true} style={styles.input} />
         <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Confirmar Senha: </Text>
         <TextInput secureTextEntry={true} style={styles.input} />
 
-        <View style={styles.createForgotLink}>
-          <Pressable
-            onPress={handleGmailLogin}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              marginBottom: 10,
-              marginRight: 30,
-              padding: 10,
-              marginTop: 18,
-            })}
-          >
-            <Icon name="google" size={25} color="#FFFFFF" />
-          </Pressable>
-
-          <Pressable
-            onPress={handleInstagramLogin}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 50,
-              width: 55,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              marginBottom: 50,
-              marginRight: 40,
-              padding: 10,
-              marginLeft: 6,
-              marginTop: 18,
-            })}
-          >
-            <FontAwesomeIcon name="instagram" size={25} color="#FFFFFF" />
-          </Pressable>
-
-          <Pressable
-            onPress={handleTwitterLogin}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 50,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              marginBottom: 10,
-              marginRight: 10,
-              padding: 10,
-              marginTop: 18,
-            })}
-          >
-            <MaterialIcon name="twitter" size={25} color="#FFFFFF" />
-          </Pressable>
-        </View>
 
         <Pressable
           style={({ pressed }: any) => ({
@@ -117,8 +65,8 @@ const CreateAccount = ({ navigation }: any) => {
             alignItems: 'center',
             alignSelf: 'center',
             borderRadius: 15,
-            marginBottom: 20,
-            marginTop: -35,
+            marginBottom: 40,
+            marginTop: 35,
           })}
         >
           <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Enviar</Text>

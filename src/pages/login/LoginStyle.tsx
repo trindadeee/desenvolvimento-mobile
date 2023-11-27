@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
       padding: 40,
     },
     input: {
+      textAlign: 'center',
       height: 40,
       width: '100%',
       borderColor: 'gray',
@@ -40,6 +41,17 @@ const styles = StyleSheet.create({
       fontSize: 34,
       color: '#236B8E',
       fontWeight: 'bold'
+    },
+
+    loginIcon : {
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 15,
+      marginBottom: 10,
+      marginRight: 30,
+      padding: 10,
+      marginTop: 18,
     }
   });
   export default styles

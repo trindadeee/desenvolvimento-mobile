@@ -1,16 +1,22 @@
 // Home.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Pressable, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native'; // Importe o hook useNavigation
 import styles from '../login/LoginStyle';
-import { products } from '../api/product';
+// import { products } from  '../../../api/product';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'react-native';
+import axios from 'axios';
 
-const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) => {
+// let products: Array<any> = [];
+
+const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenProps }: any) => {
+
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
+
+  const products = screenProps;
 
   const [searchTerm, setSearchTerm] = useState('');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
@@ -18,7 +24,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
   const navigation = useNavigation(); // Use o hook useNavigation para obter o objeto de navegação
 
   const openToast = (message: string) => {
-    ToastAndroid.show(message, 3000);
+    ToastAndroid.show(message, 2000);
   };
 
   const removeFavorite = (product: any) => {
@@ -44,7 +50,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
     if (isFavorite) {
       removeFavorite(product);
     } else {
-      // Adicione o produto aos favoritos
+
       setFavorites([...favorites, { ...product }]);
     }
   };
@@ -55,7 +61,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
       style={styles.imageBack}
     >
       <ScrollView>
-        <StatusBar backgroundColor="#236B8E" />
+        <StatusBar backgroundColor="#236B8E"/>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <TextInput
@@ -78,7 +84,6 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
           <Pressable
             onPress={() => {
               setShowFavoritesOnly(!showFavoritesOnly);
-              // Navegue para a página de favoritos ao pressionar o botão
               navigation.navigate('favorites', { favorites })
             }}
             style={({ pressed }) => ({
@@ -90,15 +95,17 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
           </Pressable>
         </View>
 
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-          {products.map((product, i) => {
+        <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+          {products.map((product: any, i: any) => {
             const isFavorite = favorites.some((fav: any) => fav.name === product.name);
 
             return (
-              <Card key={i} containerStyle={{ backgroundColor: 'transparent' }}>
+              <Card key={i} containerStyle={{borderRadius: 15, width: '40%', height:'23%', maxHeight: 'auto'}}>
                 <Card.Image source={{ uri: product.image }} />
-                <Text>{product.name}</Text>
-                <Text>{product.price}</Text>
+                <View style={{flexDirection: 'column', justifyContent:'center', alignItems:'center'}}>
+                  <Text>{product.name}</Text>
+                  <Text>R${product.price}.00</Text>
+                </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
                   <Pressable
                     onPress={() => {
