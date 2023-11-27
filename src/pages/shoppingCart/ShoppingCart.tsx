@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { ImageBackground, Pressable, Text, TextInput, View, Linking } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Para ícone do Instagram
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'; // Para ícone do Twitter
+import { ImageBackground, Pressable, Text, TextInput, View } from 'react-native';
 import styles from '../login/LoginStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
@@ -66,4 +63,5 @@ const CreateAccount = ({ navigation }: any) => {
 };
 
 export default CreateAccount;
+
 
