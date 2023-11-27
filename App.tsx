@@ -22,17 +22,18 @@ const App = (): JSX.Element => {
         <Stack.Screen
           options={({ navigation }) => ({
             title: 'PharmGo',
-            headerTintColor: '#000',
+            headerTintColor: '#236B8E',
             headerBackVisible: false,
             headerTitleAlign: 'center',
             headerRight: () => (
-              <Icon onPress={() => navigation.navigate('login')} name="logout" size={24} />
+              <Icon onPress={() => navigation.navigate('login')} name="logout" color= '#236B8E' size={24} />
             ),
             headerLeft: () => (
               <Icon
                 onPress={() => navigation.navigate('shoppingCart', { shoppingCart })}
                 name="shoppingcart"
                 size={28}
+                color='#236B8E'
               />
             ),
           })}
@@ -47,14 +48,13 @@ const App = (): JSX.Element => {
             />
           )}
         </Stack.Screen>
-        <Stack.Screen options={{ title: 'Criar Usuário', headerTintColor: '#000' }} name="createAccount" component={CreateAccount} />
-        <Stack.Screen options={{ title: 'Recuperar Senha', headerTintColor: '#000' }} name="forgotPassword" component={ForgotPassword} />
-        <Stack.Screen options={{ title: 'Carrinho', headerTintColor: '#000' }} name="shoppingCart" component={ShoppingCart} />
-        <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#000' }} name="favorites" component={Favorites} />
+        <Stack.Screen options={{ title: 'Criar Usuário', headerTintColor: '#236B8E' }} name="createAccount" component={CreateAccount} />
+        <Stack.Screen options={{ title: 'Recuperar Senha', headerTintColor: '#236B8E' }} name="forgotPassword" component={ForgotPassword} />
+        <Stack.Screen options={{ title: 'Carrinho', headerTintColor: '#236B8E' }} name="shoppingCart" component={ShoppingCart} />
+        <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#236B8E' }} name="favorites" component={Favorites} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
-
