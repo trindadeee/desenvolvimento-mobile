@@ -95,7 +95,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
             const isFavorite = favorites.some((fav: any) => fav.name === product.name);
 
             return (
-              <Card key={i} containerStyle={{ backgroundColor: 'transparent' }}>
+              <Card key={i} containerStyle={{ backgroundColor: 'white' }}>
                 <Card.Image source={{ uri: product.image }} />
                 <Text style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{product.name}</Text>
                 <Text style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{product.price}</Text>
