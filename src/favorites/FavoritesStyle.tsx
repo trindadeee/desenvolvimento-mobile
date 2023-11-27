@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cardContainer: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     marginVertical: 10,
     alignItems: 'center',
   },
