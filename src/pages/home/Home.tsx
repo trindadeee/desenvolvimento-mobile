@@ -56,7 +56,8 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
         <StatusBar backgroundColor="#236B8E" />
 
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <TextInput
+               {/* Barra de pesquisa */}
+            <TextInput
             placeholder="Search products..."
             value={searchTerm}
             onChangeText={(text: string) => setSearchTerm(text)}
@@ -88,13 +89,14 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites }: any) =
         </View>
 
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-          {products.map((product, i) => {
+        {products.filter((product: any) =>product.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+          .map((product, i) => {
             const isFavorite = favorites.some((fav: any) => fav.name === product.name);
 
             return (
               <Card key={i} containerStyle={{ backgroundColor: 'transparent' }}>
                 <Card.Image source={{ uri: product.image }} />
-                {/* Apply styles to the product name */}
                 <Text style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{product.name}</Text>
                 <Text style={{fontSize:14,color:'#236B8E', fontWeight: 'bold'}}>{product.price}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
