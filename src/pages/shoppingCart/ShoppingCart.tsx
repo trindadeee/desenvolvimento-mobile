@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { ImageBackground, Text, View, Image, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import { ImageBackground, Pressable, Text, TextInput, View } from 'react-native';
 import styles from '../login/LoginStyle';
 import { products } from '../../../api/product';
 
 const ShoppingCart = ({ route, navigation }: any) => {
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
-  const [cart, setCart] = useState(route.params.shoppingCart);
-
-  useEffect(() => {
-    // Atualizar o carrinho quando a propriedade de navegação mudar
-    setCart(route.params.shoppingCart);
-  }, [route.params.shoppingCart]);
+  const goToPage = (path: string) => {
+    navigation.navigate(path);
+  };
 
   const updateQuantity = (id: number, increment: number) => {
     const updatedCart = [...cart];
@@ -104,4 +101,6 @@ const ShoppingCart = ({ route, navigation }: any) => {
   );
 };
 
-export default ShoppingCart;
+export default CreateAccount;
+
+
