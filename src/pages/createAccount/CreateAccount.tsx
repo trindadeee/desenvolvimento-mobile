@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { ImageBackground, Pressable, Text, TextInput, View, Linking } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'; // Para ícone do Instagram
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'; // Para ícone do Twitter
 import styles from '../login/LoginStyle';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
@@ -16,18 +13,6 @@ const CreateAccount = ({ navigation }: any) => {
 
   const goToPage = (path: string) => {
     navigation.navigate(path);
-  };
-
-  const handleGmailLogin = () => {
-    Linking.openURL('https://accounts.google.com/AccountChooser/identifier?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&flowName=GlifWebSignIn&flowEntry=AccountChooser&ec=asw-gmail-globalnav-signin&theme=glif');
-  };
-
-  const handleInstagramLogin = () => {
-    Linking.openURL('https://www.instagram.com/accounts/login/?source=auth_switcher');
-  };
-
-  const handleTwitterLogin = () => {
-    Linking.openURL('https://twitter.com/i/flow/login');
   };
 
   const handleCreateAccount = () => {
