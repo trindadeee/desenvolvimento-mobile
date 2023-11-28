@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageBackground, Pressable, Text, TextInput, View } from 'react-native';
+import { ImageBackground, Pressable, Text, TextInput, View,Image } from 'react-native';
 import styles from '../login/LoginStyle';
 import { products } from '../../../api/product';
 
@@ -101,6 +101,6 @@ const ShoppingCart = ({ route, navigation }: any) => {
   );
 };
 
-export default CreateAccount;
+export default ShoppingCart;
 
 
