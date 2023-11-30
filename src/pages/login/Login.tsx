@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, Linking, Pressable, Text, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './LoginStyle';
@@ -8,8 +8,12 @@ import { StatusBar } from 'expo-status-bar';
 
 const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
+const baseURL = 'http://192.168.0.16:3000';
 
 const Login = ({ navigation }: any) => {
+
+  const [login, setLogin] = useState();
+  const [password, setpPassword] = useState();
 
   const goToPage = (path: string) => {
     navigation.navigate(path)
@@ -17,6 +21,19 @@ const Login = ({ navigation }: any) => {
   const goToHome = () => {
     navigation.navigate('home');
   };
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(`${baseURL}/login`, {
+        body: JSON.stringify({
+          login: login,
+          password: password
+        })
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   const handleGmailLogin = () => {
     Linking.openURL('https://accounts.google.com/AccountChooser/identifier?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&flowName=GlifWebSignIn&flowEntry=AccountChooser&ec=asw-gmail-globalnav-signin&theme=glif');

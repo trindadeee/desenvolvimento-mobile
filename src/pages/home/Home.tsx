@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Pressable, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import styles from '../login/LoginStyle';
-// import { products } from  '../../../api/product';
+import styles from './HomeStyle';
 import Icon from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'react-native';
+import {FAB} from '@rneui/themed';
 import axios from 'axios';
 
 // let products: Array<any> = [];
@@ -27,17 +27,21 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
     ToastAndroid.show(message, 2000);
   };
 
+  const openChat =() => {
+    navigation.navigate('chat');
+  };
+
   const removeFavorite = (product: any) => {
     const updatedFavorites = favorites.filter((fav: any) => fav.name !== product.name);
     setFavorites(updatedFavorites);
   };
 
   const addItemToCart = (cart: any, product: any) => {
-    const existingItem = cart.find((item: any) => item.id === product.id);
+    const existingItem = cart.find((item: any) => item._id === product._id);
 
     if (existingItem) {
       const updatedCart = cart.map((item: any) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
       );
       setShoppingCart(updatedCart);
     } else {
@@ -46,7 +50,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
   };
 
   const toggleFavorite = (product: any) => {
-    const isFavorite = favorites.some((fav: any) => fav.name === product.name);
+    const isFavorite = favorites.some((fav: any) => fav._id === product._id);
     if (isFavorite) {
       removeFavorite(product);
     } else {
@@ -97,7 +101,8 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
         </View>
 
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
-          {products.map((product: any, i: any) => {
+          {products.filter((product: any) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
+          .map((product: any, i: any) => {
             const isFavorite = favorites.some((fav: any) => fav.name === product.name);
 
             return (
@@ -131,6 +136,14 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
           })}
         </View>
       </ScrollView>
+      <FAB
+      style={styles.fab}
+      visible={true}
+      icon={{name:'chat', color:'white'}}
+      color='#236B8E'
+      onPress={() => openChat()}
+
+      />
     </ImageBackground>
   );
 };

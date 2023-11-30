@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ImageBackground, Pressable, Text, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import styles from '../login/LoginStyle';
+import styles from './PasswordStyle';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ForgotPassword = ({navigation}:any) => {

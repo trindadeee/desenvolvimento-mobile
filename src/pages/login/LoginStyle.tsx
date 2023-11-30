@@ -17,10 +17,9 @@ const styles = StyleSheet.create({
       width: '100%',
       borderColor: 'gray',
       borderWidth: 1,
-      marginBottom: 10, // Altere este valor conforme necessário
-      marginTop: 10, // Altere este valor conforme necessário
+      marginVertical: 10,
       borderRadius: 15,
-      paddingLeft: 10, // Adiciona espaço à esquerda do texto
+      paddingLeft: 10,
       paddingRight: 10
     },
     createForgotLink: {

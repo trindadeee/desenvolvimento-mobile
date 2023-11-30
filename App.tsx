@@ -9,6 +9,8 @@ import ForgotPassword from './src/pages/forgotPassword/ForgotPassword';
 import ShoppingCart from './src/pages/shoppingCart/ShoppingCart';
 import Login from './src/pages/login/Login';
 import Favorites from './src/pages/favorites/Favorites';
+import Chat from './src/pages/chat/Chat';
+import UserProfile from './src/pages/user/UserProfile';
 import axios from 'axios';
 import instance from './src/services/axios';
 
@@ -19,22 +21,6 @@ const App = (): JSX.Element => {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [products, setProducts] = useState([]);
-
-
-  // const getProducts = async () => {
-  //   try {
-  //     const response = await instance.get("/list-products");
-
-  //     setProducts(response.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getProducts();
-  // }, []);
-
 
   const getProducts = async () => {
     try {
@@ -62,7 +48,7 @@ const App = (): JSX.Element => {
             headerBackVisible: false,
             headerTitleAlign: 'center',
             headerRight: () => (
-              <Icon onPress={() => navigation.navigate('login')} name="logout" color= '#236B8E' size={24} />
+              <Icon onPress={() => navigation.navigate('user')} name="user" color= '#236B8E' size={24} />
             ),
             headerLeft: () => (
               <Icon
@@ -89,6 +75,8 @@ const App = (): JSX.Element => {
         <Stack.Screen options={{ title: 'Recuperar Senha', headerTintColor: '#236B8E' }} name="forgotPassword" component={ForgotPassword} />
         <Stack.Screen options={{ title: 'Carrinho', headerTintColor: '#236B8E' }} name="shoppingCart" component={ShoppingCart} />
         <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#236B8E' }} name="favorites" component={Favorites} />
+        <Stack.Screen options={{ title: 'Chat', headerTitleAlign: 'center', headerTintColor: '#236B8E' }} name="chat" component={Chat} />
+        <Stack.Screen options={{ title: 'Perfil', headerTintColor: '#236B8E' }} name="user" component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

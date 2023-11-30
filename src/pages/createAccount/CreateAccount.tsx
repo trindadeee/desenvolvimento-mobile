@@ -11,10 +11,6 @@ const CreateAccount = ({ navigation }: any) => {
 
   const backgroundImageUrl ='https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
-  const goToPage = (path: string) => {
-    navigation.navigate(path);
-  };
-
   const handleCreateAccount = () => {
     setConfirmationMessage('Conta criada com sucesso!');
     setModalVisible(true);
