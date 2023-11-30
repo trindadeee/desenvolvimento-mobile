@@ -28,11 +28,11 @@ const ForgotPassword = ({navigation}:any) => {
       <Text style = {styles.text}> Recuperar Senha</Text>
     </View>
     <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Email:</Text>
-    <TextInput style = {styles.input}/>
+    <TextInput style = {styles.input}  placeholder="Informe seu Email"/>
     <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Nova Senha:</Text>
-    <TextInput secureTextEntry={true} style = {styles.input}/>
+    <TextInput secureTextEntry={true} style = {styles.input}  placeholder="Coloque a senha"/>
     <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Confirmar Nova Senha:</Text>
-    <TextInput secureTextEntry={true} style = {styles.input}/>
+    <TextInput secureTextEntry={true} style = {styles.input}  placeholder="Confirme a senha"/>
     <Pressable
                
                 style={({ pressed }: any) => ({
