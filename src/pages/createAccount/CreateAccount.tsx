@@ -5,7 +5,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
+import * as ImagePicker from 'expo-image-picker'; 
 
+const dataList = [{ image_url: '' }];
 const dataList = [{ image_url: '' }];
 
 const CreateAccount = ({ navigation }: any) => {
@@ -143,5 +145,3 @@ const CreateAccount = ({ navigation }: any) => {
 };
 
 export default CreateAccount;
-
-
