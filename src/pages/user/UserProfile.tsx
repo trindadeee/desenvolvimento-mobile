@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TextInput, Pressable, ScrollView, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './UserStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const baseURL = 'http://10.5.5.55:3259';
+
 
 const UserProfile = ({ route, navigation }: any) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -9,11 +13,11 @@ const UserProfile = ({ route, navigation }: any) => {
   const [editedEmail, setEditedEmail] = useState('');
   const [editedAddress, setEditedAddress] = useState(''); 
   const [editedTelNumber, setEditedTelNumber] = useState(''); 
-  const [userData, setUserData] = useState(route.params || {});
+  const [userData, setUserData] = useState();
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
   useEffect(() => {
-    setUserData(route.params || {});
+    getCurrentUser();
     setEditedUsername(route.params?.username || '');
     setEditedEmail(route.params?.email || '');
     setEditedAddress(route.params?.address || ''); 
@@ -23,6 +27,23 @@ const UserProfile = ({ route, navigation }: any) => {
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
+
+  const getCurrentUser = async () => {
+    const token = await AsyncStorage.getItem('Token')
+    try {
+      const response = await fetch(`${baseURL}/current`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+      })
+      const result = await response.json();
+      console.log(result)
+      setUserData(result);
+    } catch (err) {
+      console.log('erro')
+    }
+  }
 
   const saveChanges = async () => {
     try {

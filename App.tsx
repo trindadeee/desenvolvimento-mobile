@@ -11,20 +11,31 @@ import Login from './src/pages/login/Login';
 import Favorites from './src/pages/favorites/Favorites';
 import Chat from './src/pages/chat/Chat';
 import UserProfile from './src/pages/user/UserProfile';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import instance from './src/services/axios';
 
-const baseURL = 'http://192.168.0.16:3000';
+const baseURL = 'http://10.5.5.55:3259';
+
+
 
 const App = (): JSX.Element => {
   const Stack = createNativeStackNavigator();
   const [shoppingCart, setShoppingCart] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [products, setProducts] = useState([]);
+  const [jwtToken, setJwtToken] = useState('');
 
-  const getProducts = async () => {
+  const getProducts = async (token: any) => {
     try {
-      const response = await fetch(`${baseURL}/list-products`);
+      // const token = await AsyncStorage.getItem('jwtToken');
+      // setJwtToken(token || '');
+      const response = await fetch(`${baseURL}/list-products`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+      })
       const result = await response.json();
 
       setProducts(result)
@@ -34,7 +45,8 @@ const App = (): JSX.Element => {
   }
 
   useEffect(() => {
-    getProducts();
+    const token = AsyncStorage.getItem('jwtToken');
+    getProducts(token);
   }, []);
 
   return (
