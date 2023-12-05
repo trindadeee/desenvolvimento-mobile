@@ -27,9 +27,15 @@ const UserProfile = ({ route, navigation }: any) => {
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
+  
+  // const cancelChanges = () => {
+  //   setIsEditing
+  // }
 
   const getCurrentUser = async () => {
-    const token = await AsyncStorage.getItem('Token')
+    const token = await AsyncStorage.getItem('jwtToken')
+
+    console.log('jwtToken',token)
     try {
       const response = await fetch(`${baseURL}/current`, {
         headers: {
@@ -41,13 +47,19 @@ const UserProfile = ({ route, navigation }: any) => {
       console.log(result)
       setUserData(result);
     } catch (err) {
-      console.log('erro')
+      console.log(err)
     }
+  }
+
+  const handeLogout = async () => {
+    await AsyncStorage.removeItem('jwtToken');
+
+    navigation.nagivate('login');
   }
 
   const saveChanges = async () => {
     try {
-      const response = await fetch('https://sua-api.com/atualizar-usuario', {
+      const response = await fetch(`${baseURL}/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -85,8 +97,8 @@ const UserProfile = ({ route, navigation }: any) => {
     <ImageBackground source={{ uri: backgroundImageUrl }} style={styles.imageBack}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.username}>{isEditing ? 'Editar Perfil' : userData?.username || ''}</Text>
-          <Text style={styles.email}>{userData?.email || ''}</Text>
+          {/* <Text style={styles.username}>{isEditing ? 'Editar Perfil' : userData?.name || ''}</Text>
+          <Text style={styles.email}>{userData?.email || ''}</Text> */}
         </View>
 
         <View style={styles.section}>
@@ -96,11 +108,13 @@ const UserProfile = ({ route, navigation }: any) => {
               <TextInput
                 style={styles.input}
                 placeholder="Nome de Usuário"
+                // placeholder={userData?.name}
                 value={editedUsername}
                 onChangeText={(text) => setEditedUsername(text)}
               />
               <TextInput
                 style={styles.input}
+                // placeholder={userData?.email}
                 placeholder="Email"
                 value={editedEmail}
                 onChangeText={(text) => setEditedEmail(text)}
@@ -108,19 +122,21 @@ const UserProfile = ({ route, navigation }: any) => {
               <TextInput
                 style={styles.input}
                 placeholder="Endereço"
+                // placeholder={userData?.address}
                 value={editedAddress}
                 onChangeText={(text) => setEditedAddress(text)}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Telefone de Contato"
+                // placeholder={userData?.telNumber}
                 value={editedTelNumber}
                 onChangeText={(text) => setEditedTelNumber(text)}
               />
             </View>
           ) : (
             <View>
-              <Text style={styles.label}>Nome de Usuário: {userData?.username || ''}</Text>
+              <Text style={styles.label}>Nome de Usuário: {userData?.name || ''}</Text>
               <Text style={styles.label}>Email: {userData?.email || ''}</Text>
               <Text style={styles.label}>Endereço: {userData?.address || ''}</Text>
               <Text style={styles.label}>Telefone de Contato: {userData?.telNumber || ''}</Text>
@@ -176,6 +192,7 @@ const UserProfile = ({ route, navigation }: any) => {
         </View>
 
         {isEditing && (
+          <View>
           <Pressable
             onPress={saveChanges}
             style={({ pressed }: any) => ({
@@ -193,6 +210,24 @@ const UserProfile = ({ route, navigation }: any) => {
           >
             <Text style={{ color: 'white' }}>Salvar Alterações</Text>
           </Pressable>
+          <Pressable
+            onPress={toggleEdit}
+            style={({ pressed }: any) => ({
+              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+              height: 40,
+              width: '60%',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              alignItems: 'center',
+              borderRadius: 15,
+              marginBottom: 20,
+              marginTop: 50,
+              marginRight: 10,
+            })}
+          >
+            <Text style={{ color: 'white' }}>Cancelar</Text>
+          </Pressable>
+          </View>
         )}
       </ScrollView>
     </ImageBackground>

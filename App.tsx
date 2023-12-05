@@ -28,8 +28,8 @@ const App = (): JSX.Element => {
 
   const getProducts = async (token: any) => {
     try {
-      // const token = await AsyncStorage.getItem('jwtToken');
-      // setJwtToken(token || '');
+      const token = await AsyncStorage.getItem('jwtToken');
+      setJwtToken(token || '');
       const response = await fetch(`${baseURL}/list-products`, {
         headers: {
           'Content-Type': 'application/json',
