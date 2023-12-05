@@ -12,13 +12,14 @@ const styles = StyleSheet.create({
       height: '100%',
     },
     input: {
+      textAlign: 'center',
       height: 40,
       width: '100%',
       borderColor: 'gray',
       borderWidth: 1,
-      marginBottom: 10,
-      marginTop: 10,
-      paddingLeft: 10, 
+      marginVertical: 10,
+      borderRadius: 15,
+      paddingLeft: 10,
       paddingRight: 10
       
     },
@@ -27,12 +28,7 @@ const styles = StyleSheet.create({
       alignSelf: 'flex-end',
       marginBottom: '5%',
     },
-    link: {
-      color : 'black',
-      marginLeft: '10%',
-      fontWeight: 'bold'
-  
-    },
+    
     logo: {
       alignItems: 'center',
       marginBottom: '10%'

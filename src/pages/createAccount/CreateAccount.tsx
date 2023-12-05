@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import {ImageBackground,Image,Pressable,Text,TextInput,View,Alert,KeyboardAvoidingView,Platform,} from 'react-native';
-import styles from './AccountStyle';
+import { ImageBackground, Image, Pressable, Text, TextInput, View, Alert, KeyboardAvoidingView, Platform, ScrollView, ScrollViewBase } from 'react-native';
+import styles from '../createAccount/AccountStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'expo-status-bar';
@@ -17,8 +17,9 @@ const CreateAccount = ({ navigation }: any) => {
   const [password, setPassword] = useState('');
   const [confPass, setConfPass] = useState('');
 
-  const backgroundImageUrl =
-    'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
+  const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
+  
+  const baseURL = 'http://10.5.5.55:3259';
 
   const goToPage = (path: string) => {
     navigation.navigate(path);
@@ -64,133 +65,44 @@ const CreateAccount = ({ navigation }: any) => {
     }
   };
 
-  const selectImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
-
-      if (!result.cancelled) {
-        setImageUri(result.uri);
-      }
-    } catch (error) {
-      console.error('Erro ao selecionar imagem:', error);
-    }
-  };
-
-  const deleteImage = () => {
-    setImageUri(null);
-  };
-
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-    >
-      <ImageBackground source={{ uri: backgroundImageUrl }} style={styles.imageBack}>
-        {StatusBar && <StatusBar backgroundColor='#236B8E' />}
+    <ImageBackground source={{ uri: backgroundImageUrl }} style={styles.imageBack}>
+      <StatusBar backgroundColor='#236B8E' />
 
-        <View style={styles.container}>
-
-          {/*
+      <View style={styles.container}>
         <View style={styles.logo}>
           <FontAwesome name="user-circle-o" size={150} color={'#236B8E'}></FontAwesome>
-        </View> */}
-          {imageUri && (
-            <View style={{ flexDirection: 'row', alignItems: 'center', alignSelf: 'center' }}>
-              <Image source={{ uri: imageUri }} style={{ width: 100, height: 100, borderRadius: 50 }} />
-              <Pressable onPress={deleteImage} style={{ marginLeft: 10, marginTop: -30 }}>
-                <Ionicons name="trash-sharp" size={21} color={'#236B8E'} />
-              </Pressable>
-            </View>
-          )}
-
-          <Text style={{ fontSize: 13, color: '#236B8E', fontWeight: 'bold' }}>Nome Completo: </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Coloque seu Nome Completo"
-            value={name}
-            onChangeText={(text) => setName(text)}
-          />
-          <Text style={{ fontSize: 13, color: '#236B8E', fontWeight: 'bold' }}>Email: </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Coloque seu Email"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <Text style={{ fontSize: 13, color: '#236B8E', fontWeight: 'bold' }}>Endereço: </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Coloque seu Endereço"
-            value={address}
-            onChangeText={(text) => setAddress(text)}
-          />
-          <Text style={{ fontSize: 13, color: '#236B8E', fontWeight: 'bold' }}>Telefone: </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Coloque seu Telefone"
-            value={telNumber}
-            onChangeText={(text) => setTelNumber(text)}
-          />
-          <Text style={{ fontSize: 13, color: '#236B8E', fontWeight: 'bold' }}>Senha: </Text>
-          <TextInput
-            secureTextEntry={true}
-            style={styles.input}
-            placeholder="Coloque sua senha"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <Text style={{ fontSize: 13, color: '#236B8E', fontWeight: 'bold' }}>Confirmar Senha: </Text>
-          <TextInput
-            secureTextEntry={true}
-            style={styles.input}
-            placeholder="Confime sua senha"
-            value={confPass}
-            onChangeText={(text) => setConfPass(text)}
-          />
-
-          <Pressable
-            onPress={selectImage}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 40,
-              width: '35%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              borderRadius: 15,
-              marginBottom: 10,
-              marginTop: 28,
-              marginLeft: '-1%',
-            })}
-          >
-            <Text style={{ fontSize: 16, color: '#FFFFFF' }}>Enviar Foto</Text>
-          </Pressable>
-
-          <Pressable
-            onPress={handleCreateAccount}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 40,
-              width: '60%',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              marginBottom: 20,
-              marginTop: 30,
-              marginRight: 7,
-            })}
-          >
-            <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Criar Conta</Text>
-          </Pressable>
+          <Text style={styles.text}>Criar Usuário </Text>
         </View>
-      </ImageBackground>
-    </KeyboardAvoidingView>
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Nome Completo: </Text>
+        <TextInput style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Email: </Text>
+        <TextInput keyboardType='email-address' style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Número de telefone: </Text>
+        <TextInput maxLength={11} keyboardType='numeric' style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Senha: </Text>
+        <TextInput secureTextEntry={true} style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Confirmar Senha: </Text>
+        <TextInput secureTextEntry={true} style={styles.input} />
+
+
+        <Pressable
+          style={({ pressed }: any) => ({
+            backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+            height: 40,
+            width: '60%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            borderRadius: 15,
+            marginBottom: 40,
+            marginTop: 35,
+          })}
+        >
+          <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Enviar</Text>
+        </Pressable>
+      </View>
+    </ImageBackground>
   );
 };
 
