@@ -3,11 +3,9 @@ import { ImageBackground, Image, Pressable, Text, TextInput, View, Alert, Keyboa
 import styles from '../createAccount/AccountStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import * as ImagePicker from 'expo-image-picker';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker'; 
 
-const dataList = [{ image_url: '' }];
 const dataList = [{ image_url: '' }];
 
 const CreateAccount = ({ navigation }: any) => {
@@ -70,58 +68,23 @@ const CreateAccount = ({ navigation }: any) => {
   return (
     <ImageBackground source={{ uri: backgroundImageUrl }} style={styles.imageBack}>
       <StatusBar backgroundColor='#236B8E' />
-    <ScrollView>
+
       <View style={styles.container}>
         <View style={styles.logo}>
           <FontAwesome name="user-circle-o" size={150} color={'#236B8E'}></FontAwesome>
           <Text style={styles.text}>Criar Usuário </Text>
         </View>
-        <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Nome Completo: </Text>
-        <TextInput
-          placeholderTextColor={'black'}
-          style={styles.input}
-          placeholder="Coloque seu Nome Completo"
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-        <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Email: </Text>
-        <TextInput
-          placeholderTextColor={'black'}
-          keyboardType='email-address' style={styles.input}
-          placeholder="Coloque seu Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Endereço: </Text>
-        <TextInput
-          placeholderTextColor={'black'}
-          style={styles.input}
-          placeholder="Coloque seu Endereço"
-          value={address}
-          onChangeText={(text) => setAddress(text)}
-        />
-        <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Número de telefone: </Text>
-        <TextInput
-          placeholderTextColor={'black'}
-          maxLength={11} keyboardType='numeric' style={styles.input}
-          placeholder="Coloque seu Telefone"
-          value={telNumber}
-          onChangeText={(text) => setTelNumber(text)} />
-        <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Senha: </Text>
-        <TextInput
-          placeholderTextColor={'black'}
-          secureTextEntry={true} style={styles.input}
-          placeholder="Coloque sua senha"
-          value={password}
-          onChangeText={(text) => setPassword(text)} />
-        <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold' }}>Confirmar Senha: </Text>
-        <TextInput
-          placeholderTextColor={'black'}
-          secureTextEntry={true} style={styles.input}
-          placeholder="Confime sua senha"
-          value={confPass}
-          onChangeText={(text) => setConfPass(text)}
-        />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Nome Completo: </Text>
+        <TextInput style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Email: </Text>
+        <TextInput keyboardType='email-address' style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Número de telefone: </Text>
+        <TextInput maxLength={11} keyboardType='numeric' style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Senha: </Text>
+        <TextInput secureTextEntry={true} style={styles.input} />
+        <Text style={{fontSize:15,color:'#236B8E', fontWeight: 'bold'}}>Confirmar Senha: </Text>
+        <TextInput secureTextEntry={true} style={styles.input} />
+
 
         <Pressable
           style={({ pressed }: any) => ({
@@ -139,7 +102,6 @@ const CreateAccount = ({ navigation }: any) => {
           <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Enviar</Text>
         </Pressable>
       </View>
-    </ScrollView>
     </ImageBackground>
   );
 };
