@@ -86,7 +86,15 @@ const App = (): JSX.Element => {
         <Stack.Screen options={{ title: 'Criar Usuário', headerTintColor: '#236B8E' }} name="createAccount" component={CreateAccount} />
         <Stack.Screen options={{ title: 'Recuperar Senha', headerTintColor: '#236B8E' }} name="forgotPassword" component={ForgotPassword} />
         <Stack.Screen options={{ title: 'Carrinho', headerTintColor: '#236B8E' }} name="shoppingCart" component={ShoppingCart} />
-        <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#236B8E' }} name="favorites" component={Favorites} />
+        <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#236B8E' }} name="favorites" >
+          {() => (
+            <Favorites
+            favorites={favorites}
+            setFavorites={setFavorites}>
+
+            </Favorites>
+          )}
+        </Stack.Screen>
         <Stack.Screen options={{ title: 'Chat', headerTitleAlign: 'center', headerTintColor: '#236B8E' }} name="chat" component={Chat} />
         <Stack.Screen options={{ title: 'Perfil', headerTintColor: '#236B8E' }} name="user" component={UserProfile} />
       </Stack.Navigator>
