@@ -31,10 +31,10 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
     navigation.navigate('chat');
   };
 
-  const removeFavorite = (product: any) => {
+ const removeFavorite = (product: any) => {
     const updatedFavorites = favorites.filter((fav: any) => fav.name !== product.name);
     setFavorites(updatedFavorites);
-  };
+  }
 
   const addItemToCart = (cart: any, product: any) => {
     const existingItem = cart.find((item: any) => item._id === product._id);
