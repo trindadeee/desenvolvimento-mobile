@@ -6,11 +6,18 @@ const ShoppingCart = ({ route, navigation }: any) => {
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
   const [cart, setCart] = useState(route.params.shoppingCart);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    // Atualizar o carrinho quando a propriedade de navegação mudar
+    updateTotal(cart);
     setCart(route.params.shoppingCart);
   }, [route.params.shoppingCart]);
+
+  const updateTotal = (updatedCart: any[]) => {
+
+    const newTotal = updatedCart.reduce((acc, prod) => acc + prod.quantity * prod.price, 0);
+    setTotal(newTotal);
+  };
 
   const updateQuantity = (id: number, increment: number) => {
     const updatedCart = [...cart];
@@ -24,6 +31,7 @@ const ShoppingCart = ({ route, navigation }: any) => {
       }
 
       setCart(updatedCart);
+      updateTotal(updatedCart);
       navigation.setParams({ shoppingCart: updatedCart });
     }
   };
@@ -74,6 +82,32 @@ const ShoppingCart = ({ route, navigation }: any) => {
           )
         ))}
       </ImageBackground>
+      {cart.length > 0 ? (
+        <>
+          <View style={[styles.totalContainer, { alignSelf: 'center' }]}>
+            <Text style={styles.totalText}>Total: R$ {total.toFixed(2)}</Text>
+          </View>
+          <View style={{ alignSelf: 'center', marginBottom: 27 }}>
+            <Pressable
+              style={({ pressed }) => ({
+                backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: 20,
+                marginTop: 10,
+                height: 40,
+                width: 200,
+              })}
+              onPress={() => {
+                navigation.navigate('order', { shoppingCart: cart, total });
+              }}
+            >
+              <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Finalizar Compra</Text>
+            </Pressable>
+          </View>
+        </>
+      ) : null}
+
     </>
   );
 };

@@ -41,6 +41,24 @@ const styles = StyleSheet.create({
       fontSize: 34,
       color: '#236B8E',
       fontWeight: 'bold'
+    },
+    totalContainer: {
+      backgroundColor: 'white',
+      padding: 20,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      flexDirection:'row',
+      alignSelf:'center',
+      bottom: 0,
+      width: '100%',
+     
+    },
+  
+    totalText: {
+      fontSize: 18,
+      color: '#236B8E',
+      fontWeight: 'bold',
+      marginTop:10,
     }
   });
   export default styles

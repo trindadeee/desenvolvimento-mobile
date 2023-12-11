@@ -42,15 +42,14 @@ const Favorites = ({ favorites, setFavorites }: any) => {
         <View style={styles.cardsContainer}>
           {favorites.map((favorite: any, index: any) => (
             <Card key={index} containerStyle={styles.cardContainer}>
+              <TouchableOpacity onPress={() => removeFavorite(favorite._id)}>
+              </TouchableOpacity>
               <Image
                 source={{ uri: favorite.image }}
                 style={styles.image}
               />
-              <Text style={{ fontSize: 14, color: '#236B8E', fontWeight: 'bold', paddingVertical: 2}}>{favorite.name}</Text>
-              <Text style={{ fontSize: 14, color: '#236B8E', fontWeight: 'bold', paddingVertical: 2}}>R${favorite.price}.00</Text>
-              <TouchableOpacity onPress={() => removeFavorite(favorite._id)}>
-                <Icon name="heart" size={27} color="#ff0000" />
-              </TouchableOpacity>
+              <Text style={{ fontSize: 14, color: '#236B8E', fontWeight: 'bold' }}>{favorite.name}</Text>
+              <Text style={{ fontSize: 14, color: '#236B8E', fontWeight: 'bold' }}>{favorite.price}</Text>
             </Card>
           ))}
         </View>
@@ -60,3 +59,5 @@ const Favorites = ({ favorites, setFavorites }: any) => {
 };
 
 export default Favorites;
+
+
