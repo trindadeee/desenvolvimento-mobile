@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TextInput, Pressable, ScrollView, ImageBackground } from 'react-native';
+import { View, Text, Image, TextInput, Pressable, ScrollView, ImageBackground, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './UserStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http://10.5.5.55:3259';
+const baseURL = 'http://192.168.0.16:3000';
 
 
 const UserProfile = ({ route, navigation }: any) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUsername, setEditedUsername] = useState('');
+  const [editedPassword, setEditedPassword] = useState('');
   const [editedEmail, setEditedEmail] = useState('');
-  const [editedAddress, setEditedAddress] = useState(''); 
-  const [editedTelNumber, setEditedTelNumber] = useState(''); 
+  const [editedAddress, setEditedAddress] = useState('');
+  const [editedTelNumber, setEditedTelNumber] = useState('');
   const [userData, setUserData] = useState();
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
@@ -20,22 +21,18 @@ const UserProfile = ({ route, navigation }: any) => {
     getCurrentUser();
     setEditedUsername(route.params?.username || '');
     setEditedEmail(route.params?.email || '');
-    setEditedAddress(route.params?.address || ''); 
-    setEditedTelNumber(route.params?.telNumber || ''); 
+    setEditedPassword(route.params?.password || '');
+    setEditedAddress(route.params?.address || '');
+    setEditedTelNumber(route.params?.telNumber || '');
   }, [route.params]);
 
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
-  
-  // const cancelChanges = () => {
-  //   setIsEditing
-  // }
 
   const getCurrentUser = async () => {
     const token = await AsyncStorage.getItem('jwtToken')
 
-    console.log('jwtToken',token)
     try {
       const response = await fetch(`${baseURL}/current`, {
         headers: {
@@ -44,31 +41,32 @@ const UserProfile = ({ route, navigation }: any) => {
         },
       })
       const result = await response.json();
-      console.log(result)
       setUserData(result);
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
-  }
-
-  const handeLogout = async () => {
-    await AsyncStorage.removeItem('jwtToken');
-
-    navigation.nagivate('login');
   }
 
   const saveChanges = async () => {
     try {
+      const userId = userData?._id;
+      if(!editedUsername && !editedEmail && !editedPassword && !editedAddress && !editedTelNumber) {
+        Alert.alert('É necessário editar ao menos uma informação de usuário');
+        
+        return;
+      }
       const response = await fetch(`${baseURL}/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: editedUsername,
-          email: editedEmail,
-          address: editedAddress, 
-          telNumber: editedTelNumber, 
+          userId: userId,
+          username: editedUsername ? editedUsername : userData?.name,
+          email: editedEmail ? editedEmail : userData?.email,
+          passwrod: editedPassword ? editedPassword : userData?.password,
+          address: editedAddress ? editedAddress : userData?.address,
+          telNumber: editedTelNumber ? editedTelNumber : userData?.telnumber,
         }),
       });
 
@@ -77,8 +75,8 @@ const UserProfile = ({ route, navigation }: any) => {
         navigation.setParams({
           username: editedUsername,
           email: editedEmail,
-          address: editedAddress, 
-          telNumber: editedTelNumber, 
+          address: editedAddress,
+          telNumber: editedTelNumber,
         });
       } else {
         console.error('Erro ao salvar as alterações');
@@ -89,8 +87,9 @@ const UserProfile = ({ route, navigation }: any) => {
   };
 
   const logout = () => {
-    
-    navigation.navigate('login'); 
+    AsyncStorage.removeItem('jwtToken')
+    AsyncStorage.clear()
+    navigation.navigate('login');
   };
 
   return (
@@ -118,6 +117,14 @@ const UserProfile = ({ route, navigation }: any) => {
                 placeholder="Email"
                 value={editedEmail}
                 onChangeText={(text) => setEditedEmail(text)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Senha"
+                // placeholder={userData?.name}
+                secureTextEntry
+                value={editedPassword}
+                onChangeText={(text) => setEditedPassword(text)}
               />
               <TextInput
                 style={styles.input}
@@ -182,7 +189,7 @@ const UserProfile = ({ route, navigation }: any) => {
                   borderRadius: 15,
                   marginBottom: 20,
                   marginRight: 10,
-                  marginTop:'70%'
+                  marginTop: '70%'
                 })}
               >
                 <Text style={{ color: 'white' }}>Sair</Text>
@@ -193,40 +200,40 @@ const UserProfile = ({ route, navigation }: any) => {
 
         {isEditing && (
           <View>
-          <Pressable
-            onPress={saveChanges}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 40,
-              width: '60%',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              marginBottom: 20,
-              marginTop: 50,
-              marginRight: 10,
-            })}
-          >
-            <Text style={{ color: 'white' }}>Salvar Alterações</Text>
-          </Pressable>
-          <Pressable
-            onPress={toggleEdit}
-            style={({ pressed }: any) => ({
-              backgroundColor: pressed ? '#95CEDF' : '#236B8E',
-              height: 40,
-              width: '60%',
-              justifyContent: 'center',
-              alignSelf: 'center',
-              alignItems: 'center',
-              borderRadius: 15,
-              marginBottom: 20,
-              marginTop: 50,
-              marginRight: 10,
-            })}
-          >
-            <Text style={{ color: 'white' }}>Cancelar</Text>
-          </Pressable>
+            <Pressable
+              onPress={saveChanges}
+              style={({ pressed }: any) => ({
+                backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                height: 40,
+                width: '60%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                alignItems: 'center',
+                borderRadius: 15,
+                marginBottom: 20,
+                marginTop: 50,
+                marginRight: 10,
+              })}
+            >
+              <Text style={{ color: 'white' }}>Salvar Alterações</Text>
+            </Pressable>
+            <Pressable
+              onPress={toggleEdit}
+              style={({ pressed }: any) => ({
+                backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                height: 40,
+                width: '60%',
+                justifyContent: 'center',
+                alignSelf: 'center',
+                alignItems: 'center',
+                borderRadius: 15,
+                marginBottom: 20,
+                marginTop: 50,
+                marginRight: 10,
+              })}
+            >
+              <Text style={{ color: 'white' }}>Cancelar</Text>
+            </Pressable>
           </View>
         )}
       </ScrollView>

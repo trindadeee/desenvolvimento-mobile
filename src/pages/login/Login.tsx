@@ -9,7 +9,7 @@ import { StatusBar } from 'expo-status-bar';
 
 const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
-const baseURL = 'http://10.5.5.55:3259';
+const baseURL = 'http://192.168.0.16:3000';
 
 const Login = ({ navigation }: any) => {
 
@@ -39,7 +39,6 @@ const Login = ({ navigation }: any) => {
       } else {
         loginBody.telNumber = parseInt(login, 10)
       }
-      console.log(loginBody)
       const response = await fetch(`${baseURL}/login`, {
         method: 'POST',
         headers: {
@@ -53,11 +52,12 @@ const Login = ({ navigation }: any) => {
       }
 
       if (response.ok) {
-        const jwtToken = response.headers.get('Authorization');
 
+        const jwtToken = response.headers.get('Authorization');
+        
         if (jwtToken) {
-          // console.log(jwtToken)
           await AsyncStorage.setItem('jwtToken', jwtToken);
+          await getCurrentUser()
           navigation.navigate('home');
         }
       } else {
@@ -69,8 +69,10 @@ const Login = ({ navigation }: any) => {
   }
 
   const handleLoginInputFocus = () => {
+
     setLoginPlaceHolder('')
     if(login === '') {
+
       setLoginPlaceHolder('Insira seu email ou número de telefone');
     }
   }
@@ -93,6 +95,24 @@ const Login = ({ navigation }: any) => {
   const handleTwitterLogin = () => {
     Linking.openURL('https://twitter.com/i/flow/login');
   };
+
+  const getCurrentUser = async () => {
+    const token = await AsyncStorage.getItem('jwtToken')
+
+    try {
+      const response = await fetch(`${baseURL}/current`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${token}`,
+        },
+      })
+      const result = await response.json();
+      AsyncStorage.setItem('userId', result._id)
+      return result._id
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   return (
 

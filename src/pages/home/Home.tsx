@@ -8,20 +8,29 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'react-native';
 import {FAB} from '@rneui/themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 // let products: Array<any> = [];
 
+const baseURL = 'http://192.168.0.16:3000';
+
 const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenProps }: any) => {
+
 
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
   const products = screenProps;
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [userId, setUserId] = useState('');
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   const navigation = useNavigation();
+
+  useEffect( () => {
+    getUserData();
+  }, [])
 
   const openToast = (message: string) => {
     ToastAndroid.show(message, 2000);
@@ -31,9 +40,24 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
     navigation.navigate('chat');
   };
 
-  const removeFavorite = (product: any) => {
-    const updatedFavorites = favorites.filter((fav: any) => fav.name !== product.name);
+  const removeFavorite = async (product: any) => {
+    const updatedFavorites = favorites.filter((fav: any) => fav._id !== product._id);
     setFavorites(updatedFavorites);
+
+    try {
+      await fetch(`${baseURL}/remove-favorite`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userId,
+          productId: product._id
+        })
+      })
+    } catch (err) {
+      console.error(err)
+    }
   };
 
   const addItemToCart = (cart: any, product: any) => {
@@ -49,15 +73,55 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
     }
   };
 
-  const toggleFavorite = (product: any) => {
+  const toggleFavorite = async (product: any) => {
+    
     const isFavorite = favorites.some((fav: any) => fav._id === product._id);
     if (isFavorite) {
       removeFavorite(product);
     } else {
-
       setFavorites([...favorites, { ...product }]);
+      try {
+        await fetch(`${baseURL}/add-favorite`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userId,
+            productId: product._id,
+            description: product.description,
+            image: product.image,
+            name: product.name,
+            price: product.price
+          })
+        })
+      } catch (err) {
+        console.error(err)
+      }
     }
   };
+
+  const getFavorites = async (userId: any) => {
+    try {
+      const response = await fetch(`${baseURL}/list-favorites?userId=${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const favorites = await response.json()
+      setFavorites(favorites)
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  const getUserData = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    setUserId(userId);
+    getFavorites(userId)
+  }
 
   return (
     <ImageBackground
@@ -103,7 +167,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
         <View style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start' }}>
           {products.filter((product: any) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
           .map((product: any, i: any) => {
-            const isFavorite = favorites.some((fav: any) => fav.name === product.name);
+            const isFavorite = favorites.some((fav: any) => fav._id === product._id);
 
             return (
               <Card key={i} containerStyle={{borderRadius: 15, width: '40%', height:'23%', maxHeight: 'auto'}}>

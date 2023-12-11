@@ -19,14 +19,13 @@ const CreateAccount = ({ navigation }: any) => {
 
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
-  const baseURL = 'http://10.5.5.55:3259';
+  const baseURL = 'http://192.168.0.16:3000';
 
   const goToPage = (path: string) => {
     navigation.navigate(path);
   };
 
   const handleCreateAccount = async () => {
-    // console.log(name, email, address, telNumber, password, confPass)
     if (password !== confPass) {
       Alert.alert('Senhas não coincidem', 'Por favor, verifique suas senhas.');
       return;
@@ -53,7 +52,6 @@ const CreateAccount = ({ navigation }: any) => {
         }),
       });
 
-      // console.log(response.body)
 
       if (response.ok) {
         navigation.navigate('login');

@@ -14,8 +14,9 @@ import UserProfile from './src/pages/user/UserProfile';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import instance from './src/services/axios';
+import OrderConfirmation from './src/pages/order/OrderConfirmation';
 
-const baseURL = 'http://10.5.5.55:3259';
+const baseURL = 'http://192.168.0.16:3000';
 
 
 
@@ -86,9 +87,17 @@ const App = (): JSX.Element => {
         <Stack.Screen options={{ title: 'Criar Usuário', headerTintColor: '#236B8E' }} name="createAccount" component={CreateAccount} />
         <Stack.Screen options={{ title: 'Recuperar Senha', headerTintColor: '#236B8E' }} name="forgotPassword" component={ForgotPassword} />
         <Stack.Screen options={{ title: 'Carrinho', headerTintColor: '#236B8E' }} name="shoppingCart" component={ShoppingCart} />
-        <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#236B8E' }} name="favorites" component={Favorites} />
+        <Stack.Screen options={{ title: 'Favoritos', headerTintColor: '#236B8E' }} name="favorites" >
+          {() => (
+            <Favorites
+            favorites={favorites}
+            setFavorites={setFavorites}>
+            </Favorites>
+          )}
+        </Stack.Screen>
         <Stack.Screen options={{ title: 'Chat', headerTitleAlign: 'center', headerTintColor: '#236B8E' }} name="chat" component={Chat} />
         <Stack.Screen options={{ title: 'Perfil', headerTintColor: '#236B8E' }} name="user" component={UserProfile} />
+        <Stack.Screen options={{ title: 'Pedidos', headerTintColor: '#236B8E' }} name="orders" component={OrderConfirmation} />
       </Stack.Navigator>
     </NavigationContainer>
   );
