@@ -13,7 +13,7 @@ import axios from 'axios';
 
 // let products: Array<any> = [];
 
-const baseURL = 'http://192.168.0.16:3000';
+const baseURL = 'http:// 10.0.0.111:3000';
 
 const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenProps }: any) => {
 
