@@ -6,7 +6,7 @@ import styles from './FavoritesStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Favorites = ({ favorites, setFavorites }: any) => {
-  const baseURL = 'http://192.168.0.16:3000';
+  const baseURL = 'http:// 10.0.0.111:3000';
 
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 

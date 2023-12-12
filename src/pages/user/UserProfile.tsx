@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './UserStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http://192.168.0.16:3000';
+const baseURL = 'http:// 10.0.0.111:3000';
 
 
 const UserProfile = ({ route, navigation }: any) => {

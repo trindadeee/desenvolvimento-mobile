@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import * as Device from "expo-device";
+
 
 const socket = io('http://localhost');
 console.log("cheguei aqui");
