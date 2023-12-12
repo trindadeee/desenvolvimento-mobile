@@ -3,8 +3,11 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+      marginVertical: 10,
+      marginHorizontal: 15,
+      borderRadius: 15,
+      backgroundColor: 'white',
+      padding: 10
     },
     imageBack: {
       flex: 1,
@@ -12,34 +15,42 @@ const styles = StyleSheet.create({
       height: '100%',
     },
     title: {
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: 'bold',
-      marginBottom: 20,
+      color: '#236B8E',
+      marginTop: 5 ,
+      marginLeft: 5
+    },
+    productItem: {
+      width: '45%',
+      marginVertical: 10,
     },
     productContainer: {
-      alignItems: 'center',
-      marginVertical: 10,
+      flexDirection:'row',
+      flexWrap: 'wrap',
+      justifyContent:'space-around'
     },
     productImage: {
       width: 100,
       height: 100,
     },
     productName: {
-      fontSize: 18,
+      fontSize: 13,
+      marginBottom: 2,
       color: '#236B8E',
-      fontWeight: 'bold',
-      marginTop: 10,
+      fontWeight: 'bold'
     },
     productQuantity: {
-      fontSize: 15,
+      fontSize: 13,
       color: '#236B8E',
       fontWeight: 'bold',
     },
     total: {
-      fontSize: 20,
+      fontSize: 15,
       color: '#236B8E',
       fontWeight: 'bold',
-      marginTop: 20,
+      marginVertical: 10,
+      textAlign: 'center'
     },
   });
   

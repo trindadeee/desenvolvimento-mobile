@@ -84,18 +84,6 @@ const Login = ({ navigation }: any) => {
     }
   }
 
-  const handleGmailLogin = () => {
-    Linking.openURL('https://accounts.google.com/AccountChooser/identifier?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&flowName=GlifWebSignIn&flowEntry=AccountChooser&ec=asw-gmail-globalnav-signin&theme=glif');
-  };
-
-  const handleInstagramLogin = () => {
-    Linking.openURL('https://www.instagram.com/accounts/login/?source=auth_switcher');
-  };
-
-  const handleTwitterLogin = () => {
-    Linking.openURL('https://twitter.com/i/flow/login');
-  };
-
   const getCurrentUser = async () => {
     const token = await AsyncStorage.getItem('jwtToken')
 
@@ -143,38 +131,6 @@ const Login = ({ navigation }: any) => {
         <View style={styles.createForgotLink}>
           <Text onPress={() => { goToPage('createAccount') }} style={[styles.link, { fontSize: 15, color: '#236B8E', fontWeight: 'bold' }]}>Criar Usuário</Text>
           <Text onPress={() => { goToPage('forgotPassword') }} style={[styles.link, { fontSize: 15, color: '#236B8E', fontWeight: 'bold' }]}>Esqueceu sua senha?</Text>
-        </View>
-
-        <View style={styles.createForgotLink}>
-          <Pressable
-            onPress={handleGmailLogin}
-            style={({ pressed }: any) => [
-              styles.loginIcon,
-              { backgroundColor: pressed ? '#95CEDF' : '#236B8E' }
-            ]}
-          >
-            <Icon name="google" size={25} color="#FFFFFF" />
-          </Pressable>
-
-          <Pressable
-            onPress={handleInstagramLogin}
-            style={({ pressed }: any) => [
-              styles.loginIcon,
-              { backgroundColor: pressed ? '#95CEDF' : '#236B8E' }
-            ]}
-          >
-            <FontAwesomeIcon name="instagram" size={25} color="#FFFFFF" />
-          </Pressable>
-
-          <Pressable
-            onPress={handleTwitterLogin}
-            style={({ pressed }: any) => [
-              styles.loginIcon,
-              { backgroundColor: pressed ? '#95CEDF' : '#236B8E' }
-            ]}
-          >
-            <MaterialIcon name="twitter" size={25} color="#FFFFFF" />
-          </Pressable>
         </View>
         <Pressable
           onPress={handleLogin}

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, Text, View, Image, Pressable } from 'react-native';
+import { ImageBackground, Text, View, Image, Pressable, ScrollView } from 'react-native';
 import styles from './ShoppingStyle';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ShoppingCart = ({ route, navigation }: any) => {
   const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
+
+  const baseURL = 'http://192.168.0.16:3000';
 
   const [cart, setCart] = useState(route.params.shoppingCart);
   const [total, setTotal] = useState(0);
@@ -36,15 +39,34 @@ const ShoppingCart = ({ route, navigation }: any) => {
     }
   };
 
+  const handleBuy = async () => {
+    const userId = await AsyncStorage.getItem('userId');
+    try {
+      await fetch(`${baseURL}/order`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userId,
+          products: cart
+        })
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <>
       <ImageBackground
         source={{ uri: backgroundImageUrl }}
         style={styles.imageBack}
       >
+      <ScrollView>
         {cart.map((prod: any) => (
           prod.quantity > 0 && (
-            <View key={prod._id} style={{ alignItems: 'center', marginVertical: 10, backgroundColor: 'white', marginHorizontal: 6, borderRadius: 15, padding: 10 }}>
+            <View key={prod._id} style={{ alignItems: 'center', marginVertical: 10, backgroundColor: 'white', marginHorizontal: 20, borderRadius: 15, padding: 10 }}>
               <Image source={{ uri: prod.image }} style={{ width: 100, height: 100 }} />
               <Text style={{ fontSize: 15, color: '#236B8E', fontWeight: 'bold', marginTop: 10 }}>{prod.name}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -81,6 +103,7 @@ const ShoppingCart = ({ route, navigation }: any) => {
             </View>
           )
         ))}
+      </ScrollView>
       </ImageBackground>
       {cart.length > 0 ? (
         <>
@@ -99,7 +122,8 @@ const ShoppingCart = ({ route, navigation }: any) => {
                 width: 200,
               })}
               onPress={() => {
-                navigation.navigate('order', { shoppingCart: cart, total });
+                handleBuy();
+                navigation.navigate('orders', { shoppingCart: cart, total });
               }}
             >
               <Text style={{ fontSize: 18, color: '#FFFFFF' }}>Finalizar Compra</Text>

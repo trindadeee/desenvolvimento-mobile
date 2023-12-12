@@ -120,7 +120,7 @@ const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenPr
   const getUserData = async () => {
     const userId = await AsyncStorage.getItem('userId');
     setUserId(userId);
-    getFavorites(userId)
+    getFavorites(userId);
   }
 
   return (
