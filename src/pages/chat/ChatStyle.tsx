@@ -5,11 +5,11 @@ const styles = StyleSheet.create({
     sendButton:{
         backgroundColor: Colors.primary,
         color:Colors.white,
-        height:40,
-        width:70,
+        height:45,
+        width:75,
         alignItems:'center',
         justifyContent:'center',
-        borderRadius: 20,
+        borderRadius: 15,
         marginRight:5
     },
     input:{
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     messageTextInput:{
         flex:1,
         minHeight:40,
-        marginRight:90,
+        marginRight:10,
         paddingHorizontal:12,
         fontSize:17,
         marginHorizontal:5,

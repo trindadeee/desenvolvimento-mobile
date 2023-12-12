@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import instance from './src/services/axios';
 import OrderConfirmation from './src/pages/order/OrderConfirmation';
+import History from './src/pages/hisotry/History';
 
 const baseURL = 'http://192.168.0.16:3000';
 
@@ -65,7 +66,7 @@ const App = (): JSX.Element => {
             ),
             headerLeft: () => (
               <Icon
-                onPress={() => navigation.navigate('shoppingCart', { shoppingCart })}
+                onPress={() => navigation.navigate('shoppingCart', {shoppingCart})}
                 name="shoppingcart"
                 size={28}
                 color='#236B8E'
@@ -98,6 +99,7 @@ const App = (): JSX.Element => {
         <Stack.Screen options={{ title: 'Chat', headerTitleAlign: 'center', headerTintColor: '#236B8E' }} name="chat" component={Chat} />
         <Stack.Screen options={{ title: 'Perfil', headerTintColor: '#236B8E' }} name="user" component={UserProfile} />
         <Stack.Screen options={{ title: 'Pedidos', headerTintColor: '#236B8E' }} name="orders" component={OrderConfirmation} />
+        <Stack.Screen options={{ title: 'Pedidos Anteriores', headerTintColor: '#236B8E' }} name="history" component={History} />
       </Stack.Navigator>
     </NavigationContainer>
   );

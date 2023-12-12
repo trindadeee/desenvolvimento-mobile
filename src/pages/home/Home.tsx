@@ -9,11 +9,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from 'react-native';
 import {FAB} from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
 // let products: Array<any> = [];
 
-const baseURL = 'http:// 10.0.0.111:3000';
+const baseURL = 'http://192.168.0.16:3000';
 
 const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenProps }: any) => {
 

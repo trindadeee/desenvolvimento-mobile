@@ -14,6 +14,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: '10%',
   },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  
   avatar: {
     width: 100,
     height: 100,

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import styles from './UserStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const baseURL = 'http:// 10.0.0.111:3000';
+const baseURL = 'http://192.168.0.16:3000';
 
 
 const UserProfile = ({ route, navigation }: any) => {
@@ -45,6 +45,10 @@ const UserProfile = ({ route, navigation }: any) => {
     } catch (err) {
       console.error(err)
     }
+  }
+
+  const goToHistory = async () => {
+    navigation.navigate('history')
   }
 
   const saveChanges = async () => {
@@ -158,12 +162,14 @@ const UserProfile = ({ route, navigation }: any) => {
             </View>
           ) : (
             <View>
+              <View style={styles.buttonContainer}>
+
               <Pressable
                 onPress={toggleEdit}
                 style={({ pressed }: any) => ({
                   backgroundColor: pressed ? '#95CEDF' : '#236B8E',
                   height: 40,
-                  width: '60%',
+                  width: '50%',
                   justifyContent: 'center',
                   alignSelf: 'center',
                   alignItems: 'center',
@@ -175,6 +181,26 @@ const UserProfile = ({ route, navigation }: any) => {
               >
                 <Text style={{ color: 'white' }}>Editar Perfil</Text>
               </Pressable>
+
+              <Pressable
+                onPress={goToHistory}
+                style={({ pressed }: any) => ({
+                  backgroundColor: pressed ? '#95CEDF' : '#236B8E',
+                  height: 40,
+                  width: '50%',
+                  justifyContent: 'center',
+                  alignSelf: 'start',
+                  alignItems: 'center',
+                  borderRadius: 15,
+                  marginBottom: 20,
+                  marginTop: 60,
+                  marginRight: 10,
+                })}
+              >
+                <Text style={{ color: 'white' }}>Histórico de pedidos</Text>
+              </Pressable>
+
+              </View>
 
               {/* Novo botão de logout */}
               <Pressable

@@ -21,7 +21,7 @@ const Balloon =  ({ message, currentUser }:any) => {
                                 {message.sentBy}
                             </Text>
                             <Text style={{...styles.balloonText,...balloonTextColor}}>
-                            {message.sentBy}
+                            {message.content}
                             </Text>
                         </View>
                     </View>

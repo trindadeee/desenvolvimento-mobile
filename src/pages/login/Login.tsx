@@ -9,7 +9,7 @@ import { StatusBar } from 'expo-status-bar';
 
 const backgroundImageUrl = 'https://img.freepik.com/vetores-premium/molecula-de-pesquisa-de-dna-de-formacao-medica-abstrata_230610-1390.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1696550400&semt=ais';
 
-const baseURL = 'http:// 10.0.0.111:3000';
+const baseURL = 'http://192.168.0.16:3000';
 
 const Login = ({ navigation }: any) => {
 
@@ -96,6 +96,7 @@ const Login = ({ navigation }: any) => {
       })
       const result = await response.json();
       AsyncStorage.setItem('userId', result._id)
+      AsyncStorage.setItem('userData', JSON.stringify(result))
       return result._id
     } catch (err) {
       console.error(err)
