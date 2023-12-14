@@ -11,7 +11,7 @@ const Balloon =  ({ message, currentUser }:any) => {
     const bubbleWrapper = sent
         ? styles.bubbleWrapperSent
         : styles.bubbleWrapperReceived;
-
+        
         if (message) {
             return (
                 <View style={{marginBottom:'2%'}}>

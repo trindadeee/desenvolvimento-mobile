@@ -1,8 +1,7 @@
 import { io } from "socket.io-client";
 
 
-const socket = io('http://192.168.0.16:3000');
-console.log("cheguei aqui");
+const socket = io('http://26.142.65.14:3000');
 socket.on('connect', () => {
     console.log('WebSocket connected ' + socket.connected);  // Corrigido para socket.connected
     console.log(socket.id);

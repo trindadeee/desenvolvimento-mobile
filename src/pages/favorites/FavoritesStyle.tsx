@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cardContainer: {
+    maxWidth: '50%',
     borderRadius: 15,
     marginVertical: 10,
     alignItems: 'center',

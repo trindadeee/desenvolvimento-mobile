@@ -9,11 +9,10 @@ const OrderConfirmation = ({ route }: any) => {
   const [history, setHistory] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
 
-  const baseURL = 'http://192.168.0.16:3000';
+  const baseURL = 'http://10.5.0.33:3000';
 
   useEffect(() => {
     getHistory()
-    console.log(history)
   }, [])
 
   const getHistory = async () => {
@@ -36,7 +35,6 @@ const OrderConfirmation = ({ route }: any) => {
   }
 
     const clearOrders = async () => {
-    console.log('aqui')
     const userId = await AsyncStorage.getItem('userId');
     try {
       await fetch(`${baseURL}/clear-orders`, {

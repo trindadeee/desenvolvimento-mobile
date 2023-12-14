@@ -13,7 +13,7 @@ import storageService from '../../services/storageService';
   text: 'mensagem'
 */ 
 
-const socket = io('http://192.168.0.16:3000')
+const socket = io('http://10.5.0.33:3000')
 const Chat = ({route}: any) => {
   
   // const content: any = {messages:[]};
@@ -23,30 +23,24 @@ const Chat = ({route}: any) => {
   const [userData, setUserData]= useState({name: ''});
   
   useEffect(() => {
-    socket.on('connect', () => {
-      console.log('websocket connectado' + socket.connect);
-      console.log(socket.id)
-    })
     const fetchData = async () => {
       try {
         const userData = await storageService.get('userData');
         setUserData(userData);
+        
         socket.on('chat', (response: any) => {
-          setContent('');
-          chat.messages.push(response);
+          setChat(prevChat => ({ messages: [...prevChat.messages, response] }));
         });
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-    fetchData();
-  }, []) 
   
-  const sendMessage = () => {
-    const newMessage = { content, sentBy: userData.name, date: new Date() };
-    // console.log(userData)
-    socket.emit('chat', { content, sentBy: userData.name, date: new Date() });
-    setChat((prevChat) => ({ messages: [...prevChat.messages, newMessage] }));
+    fetchData();
+  }, []);
+  
+  const sendMessage = async () => {
+    await socket.emit('chat', { content, sentBy: userData.name, date: new Date() });
     setContent('');
   };  
   return (

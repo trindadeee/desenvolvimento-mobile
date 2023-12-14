@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // let products: Array<any> = [];
 
-const baseURL = 'http://192.168.0.16:3000';
+const baseURL = 'http://10.5.0.33:3000';
 
 const Home = ({ shoppingCart, setShoppingCart, favorites, setFavorites, screenProps }: any) => {
 
